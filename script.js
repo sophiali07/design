@@ -20,7 +20,7 @@ const projectDetailYear = document.querySelector(".project-detail-year");
 const projectDetailMedium = document.querySelector(".project-detail-medium");
 const projectDetailVisual = document.querySelector(".project-detail-visual");
 const projectDetailImage = projectDetailVisual.querySelector("img");
-const foldCaseStudy = document.querySelector(".fold-case-study");
+const foldCaseStudy = document.querySelector(".fold-wix-case");
 const finePointer = window.matchMedia("(pointer: fine)").matches;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const baseTitle = document.title;
@@ -49,6 +49,8 @@ function projectIndexFromHash() {
 function hideProjectDetail({ clearUrl = false, restoreFocus = false } = {}) {
   const wasVisible = projectDetail.classList.contains("is-visible");
   projectDetail.classList.remove("is-visible");
+  projectDetail.classList.remove("is-fold-detail", "is-drawing-detail");
+  body.classList.remove("detail-open");
   projectDetail.setAttribute("aria-hidden", "true");
   projectDetailVisual.style.setProperty("--detail-x", "0px");
   projectDetailVisual.style.setProperty("--detail-y", "0px");
@@ -67,6 +69,8 @@ function openProject(index, historyMode = "push") {
   const image = card.querySelector("img");
   const cardTitle = card.querySelector("strong").textContent;
   const title = card.dataset.detailTitle;
+  const isFold = card.dataset.project === "fold-with-nara";
+  const isDrawing = card.querySelector("small").textContent.trim().startsWith("Drawing");
 
   activeProjectIndex = normalizedIndex;
   aboutPanel.classList.remove("is-visible");
@@ -82,9 +86,12 @@ function openProject(index, historyMode = "push") {
   projectDetailMedium.textContent = card.dataset.medium;
   projectDetailImage.src = image.getAttribute("src");
   projectDetailImage.alt = image.alt;
-  foldCaseStudy.hidden = card.dataset.project !== "fold-with-nara";
+  foldCaseStudy.hidden = !isFold;
   projectDetail.scrollTop = 0;
+  projectDetail.classList.toggle("is-fold-detail", isFold);
+  projectDetail.classList.toggle("is-drawing-detail", isDrawing);
   projectDetail.classList.add("is-visible");
+  body.classList.add("detail-open");
   projectDetail.setAttribute("aria-hidden", "false");
   document.title = `${cardTitle} — Sophia Li`;
   requestAnimationFrame(() => { projectDetail.scrollTop = 0; });
@@ -193,7 +200,7 @@ if (finePointer && !reduceMotion) {
   const cursor = document.querySelector(".cursor");
   const trails = document.querySelector(".cursor-trails");
   const letters = [...document.querySelectorAll(".name-button h1 span")];
-  const hoverTargets = document.querySelectorAll("a, button, .project-card, .project-detail-visual");
+  const hoverTargets = document.querySelectorAll("a, button, .project-card");
   let pointerX = innerWidth / 2;
   let pointerY = innerHeight / 2;
   let cursorX = pointerX;
@@ -237,14 +244,6 @@ if (finePointer && !reduceMotion) {
       card.style.setProperty("--my", `${y * 8}px`);
     }
 
-    if (projectDetail.classList.contains("is-visible") && projectDetailVisual.contains(event.target)) {
-      const rect = projectDetailVisual.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - .5;
-      const y = (event.clientY - rect.top) / rect.height - .5;
-      projectDetailVisual.style.setProperty("--detail-x", `${x * 12}px`);
-      projectDetailVisual.style.setProperty("--detail-y", `${y * 12}px`);
-    }
-
     if (event.timeStamp - lastTrailTime > 48) {
       const dot = document.createElement("i");
       dot.className = "trail";
@@ -263,11 +262,6 @@ if (finePointer && !reduceMotion) {
       card.style.setProperty("--mx", "0px");
       card.style.setProperty("--my", "0px");
     });
-  });
-
-  projectDetailVisual.addEventListener("pointerleave", () => {
-    projectDetailVisual.style.setProperty("--detail-x", "0px");
-    projectDetailVisual.style.setProperty("--detail-y", "0px");
   });
 
   hoverTargets.forEach((target) => {
