@@ -49,7 +49,8 @@ function projectIndexFromHash() {
 function hideProjectDetail({ clearUrl = false, restoreFocus = false } = {}) {
   const wasVisible = projectDetail.classList.contains("is-visible");
   projectDetail.classList.remove("is-visible");
-  projectDetail.classList.remove("is-fold-detail", "is-drawing-detail");
+  projectDetail.classList.remove("is-fold-detail", "is-drawing-detail", "is-portrait-detail");
+  delete projectDetail.dataset.project;
   body.classList.remove("detail-open");
   projectDetail.setAttribute("aria-hidden", "true");
   projectDetailVisual.style.setProperty("--detail-x", "0px");
@@ -71,6 +72,7 @@ function openProject(index, historyMode = "push") {
   const title = card.dataset.detailTitle;
   const isFold = card.dataset.project === "fold-with-nara";
   const isDrawing = card.querySelector("small").textContent.trim().startsWith("Drawing");
+  const isPortrait = card.classList.contains("project-portrait");
 
   activeProjectIndex = normalizedIndex;
   aboutPanel.classList.remove("is-visible");
@@ -90,6 +92,8 @@ function openProject(index, historyMode = "push") {
   projectDetail.scrollTop = 0;
   projectDetail.classList.toggle("is-fold-detail", isFold);
   projectDetail.classList.toggle("is-drawing-detail", isDrawing);
+  projectDetail.classList.toggle("is-portrait-detail", isPortrait);
+  projectDetail.dataset.project = card.dataset.project;
   projectDetail.classList.add("is-visible");
   body.classList.add("detail-open");
   projectDetail.setAttribute("aria-hidden", "false");
