@@ -68,8 +68,8 @@ function openProject(index, historyMode = "push") {
   const normalizedIndex = (index + projectCards.length) % projectCards.length;
   const card = projectCards[normalizedIndex];
   const image = card.querySelector("img");
-  const cardTitle = card.querySelector("strong").textContent;
-  const title = card.dataset.detailTitle;
+  const cardTitle = card.dataset.detailTitle || card.querySelector("strong").textContent.trim();
+  const title = card.dataset.detailTitle || cardTitle;
   const isFold = card.dataset.project === "fold-with-nara";
   const isDrawing = card.querySelector("small").textContent.trim().startsWith("Drawing");
   const isPortrait = card.classList.contains("project-portrait");
