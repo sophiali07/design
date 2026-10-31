@@ -57,7 +57,6 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .project-card.project-narrow .project-reveal strong { display: block; width: 100%; max-width: 100%; font-size: clamp(1.8rem, 3.6vw, 4rem); text-align: center; text-wrap: balance; }
 .project-card.project-narrow .project-reveal .passage-title { display: flex; flex-direction: column; align-items: center; }
 .passage-title span { display: block; width: max-content; }
-.passage-title span:first-child { translate: -.15em 0; }
 .project-reveal { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; color: white; opacity: 0; transform: translateY(12px); transition: opacity .4s var(--ease), transform .5s var(--ease); pointer-events: none; }
 .project-reveal small { margin-bottom: 18px; font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; }
 .project-reveal strong { max-width: 90%; font-size: clamp(2.2rem, 6vw, 6.5rem); line-height: .9; letter-spacing: -.07em; }
@@ -131,7 +130,7 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
   right: 0;
   bottom: 0;
   left: 0;
-  height: 4%;
+  height: 7%;
   background: #fbfbfb;
 }
 .fold-nara-visuals { min-width: 0; display: grid; grid-template-columns: minmax(165px, .5fr) clamp(34px, 4vw, 54px) minmax(0, 1.5fr); gap: clamp(8px, 1vw, 14px); align-items: center; }
@@ -141,12 +140,15 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .fold-copy h3 { margin: 0 0 18px; font-family: "Inter", Arial, sans-serif; font-size: clamp(1.45rem, 2.4vw, 2.25rem); font-weight: 600; line-height: 1.08; letter-spacing: -.045em; }
 .fold-copy p { margin: 0; font-family: "Inter", Arial, sans-serif; font-size: clamp(.86rem, 1vw, .98rem); line-height: 1.65; }
 
-.about-panel { position: fixed; inset: 0; z-index: 100; isolation: isolate; display: grid; grid-template-columns: 1fr 3fr; gap: 3rem; padding: 18vh 7vw 8vh; overflow-y: auto; overscroll-behavior: contain; background: var(--ink); color: white; opacity: 0; visibility: hidden; transform: translateY(100%); transition: opacity .55s var(--ease), transform .8s var(--ease), visibility 0s .8s; }
+.about-panel { position: fixed; inset: 0; z-index: 100; isolation: isolate; display: grid; grid-template-columns: 1fr; padding: 18vh 7vw 8vh; overflow-y: auto; overscroll-behavior: contain; background: var(--ink); color: white; opacity: 0; visibility: hidden; transform: translateY(100%); transition: opacity .55s var(--ease), transform .8s var(--ease), visibility 0s .8s; }
 .about-panel.is-visible { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 .about-close { position: absolute; z-index: 3; right: 2.7vw; top: 30px; color: white; font-size: .7rem; cursor: none; }
-.about-copy { position: relative; z-index: 2; grid-column: 2; max-width: 1050px; }
-.about-copy h2 { margin: 0; font-size: clamp(3rem, 7.4vw, 8rem); line-height: .94; letter-spacing: -.07em; }
-.about-copy p { max-width: 660px; margin: 4rem 0 2rem auto; font-size: clamp(1rem, 1.55vw, 1.35rem); line-height: 1.55; }
+.about-copy { position: relative; z-index: 2; grid-column: 1; width: min(100%, 7.45em); justify-self: center; font-size: clamp(3.2rem, 8.2vw, 9rem); transform: translateX(clamp(16px, 2.2vw, 34px)); }
+.about-copy h2 { display: flex; flex-direction: column; align-items: center; margin: 0; text-align: center; font-size: 1em; line-height: .94; letter-spacing: -.07em; }
+.about-title-line { display: block; width: max-content; max-width: 100%; white-space: nowrap; }
+.about-title-line--lead { position: relative; }
+.about-title-comma { position: absolute; left: 100%; }
+.about-copy p { width: min(660px, 78%); margin: 4rem 0 2rem auto; font-size: clamp(1rem, 1.55vw, 1.35rem); line-height: 1.55; }
 .about-copy a { display: block; width: max-content; margin-left: auto; padding-bottom: 7px; border-bottom: 1px solid; font-size: .75rem; }
 @media (max-width: 760px) {
   body { cursor: auto; }
@@ -172,7 +174,6 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
   .project-reveal strong { font-size: 1.15rem; }
   .project-card.project-narrow .project-reveal strong { font-size: 1.15rem; }
   .project-card.project-narrow .project-reveal .passage-title { flex-direction: row; gap: .28em; }
-  .passage-title span:first-child { translate: 0; }
   .project-slide.is-active .project-card:hover img { filter: none; transform: none; }
   .gallery-status { right: -24px; }
   .scroll-hint { left: 18px; }
@@ -195,8 +196,12 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
   .fold-prototype-full { width: min(78vw, 310px); }
   .fold-nara-visuals { grid-template-columns: minmax(112px, .5fr) 32px minmax(0, 1.5fr); gap: 6px; }
   .fold-nara-arrow { transform: translateY(12px); }
-  .about-panel { grid-template-columns: 1fr; gap: 2rem; padding: 14vh 24px 7vh; }
-  .about-copy { grid-column: 1; }
+  .about-panel { padding: 14vh 24px 7vh; }
+  .about-copy { width: 100%; max-width: none; justify-self: stretch; transform: none; }
+  .about-copy h2 { display: block; text-align: left; }
+  .about-title-line { width: auto; white-space: normal; }
+  .about-title-comma { position: static; }
+  .about-copy p { width: 100%; }
   .about-copy p, .about-copy a { margin-left: 0; }
 }
 
