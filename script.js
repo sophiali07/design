@@ -85,7 +85,10 @@ function openProject(index, historyMode = "push") {
   projectDetailTitle.hidden = !title;
   projectDetailDescription.textContent = card.dataset.description;
   projectDetailYear.textContent = card.dataset.year;
-  projectDetailMedium.textContent = card.dataset.medium;
+  projectDetailMedium.textContent = card.dataset.medium
+    .split(",")
+    .map((medium) => medium.trim())
+    .join(" · ");
   projectDetailImage.src = image.getAttribute("src");
   projectDetailImage.alt = image.alt;
   foldCaseStudy.hidden = !isFold;

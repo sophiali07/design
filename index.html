@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=29" />
+    <link rel="stylesheet" href="styles.css?v=32" />
   </head>
   <body data-view="intro">
     <div class="cursor" aria-hidden="true"><span></span></div>
@@ -38,7 +38,7 @@
         <div class="work-kicker">Selected works · 2024—2026</div>
         <div class="gallery" tabindex="-1">
           <article class="project-slide is-active" data-index="0">
-            <a class="project-card" href="#fold-with-nara" data-project="fold-with-nara" data-detail-title="Fold With Nara" data-year="2026" data-medium="Adobe Illustrator, Adobe Photoshop" data-description="Created for a Duolingo design challenge, Fold With Nara is a pop-up installation that introduces Japanese culture through a guided origami experience visitors can complete in under ten minutes." aria-label="Open Fold With Nara project details">
+            <a class="project-card" href="#fold-with-nara" data-project="fold-with-nara" data-detail-title="Fold With Nara" data-year="2026" data-medium="Figma, Adobe Illustrator, Adobe Photoshop" data-description="Created for a Duolingo design challenge, Fold With Nara is a pop-up installation that introduces Japanese culture through a guided origami experience visitors can complete in under ten minutes." aria-label="Open Fold With Nara project details">
               <img src="assets/uiux.webp" alt="Fold with Nara interaction design project" />
               <span class="project-reveal"><small>UI/UX · 2026</small><strong>Fold With Nara</strong><em>Project details ↗</em></span>
             </a>
@@ -136,9 +136,9 @@
               <figure class="project-detail-visual">
                 <img src="assets/uiux.webp" alt="Fold with Nara interaction design project" />
               </figure>
-              <div class="project-detail-facts">
-                <p>Year: <span class="project-detail-year">2026</span></p>
-                <p>Medium: <span class="project-detail-medium">Adobe Illustrator, Adobe Photoshop</span></p>
+              <div class="project-detail-facts" aria-label="Project information">
+                <span class="project-detail-year">2026</span>
+                <span class="project-detail-medium">Figma · Adobe Illustrator · Adobe Photoshop</span>
               </div>
             </div>
             <p class="project-detail-description">Created for a Duolingo design challenge, Fold With Nara is a pop-up installation that introduces Japanese culture through a guided origami experience visitors can complete in under ten minutes.</p>
@@ -149,7 +149,7 @@
               <div class="fold-meta" aria-label="Project information">
                 <span>UI/UX</span>
                 <span>2026</span>
-                <span>Adobe Illustrator · Adobe Photoshop</span>
+                <span>Figma · Adobe Illustrator · Adobe Photoshop</span>
               </div>
             </header>
 
@@ -173,29 +173,20 @@
               </figure>
             </section>
 
-            <section class="fold-process-story" aria-label="How the Fold With Nara experience works">
-              <figure class="fold-process-image">
-                <img loading="lazy" src="assets/fold-visit-steps.jpg" alt="The eight steps in a Fold With Nara visit" />
-              </figure>
-              <figure class="fold-process-image fold-process-image--method">
-                <img loading="lazy" src="assets/fold-duolingo-method.jpg" alt="How Fold With Nara applies the Duolingo learning method" />
-              </figure>
-            </section>
-
             <section class="fold-feature fold-feature--prototype">
               <figure class="fold-media fold-prototype-full">
                 <img loading="lazy" src="assets/fold-prototype-straight.png" alt="Straightened front view of the Fold With Nara prototype with the finished Mt. Fuji screen" />
               </figure>
               <div class="fold-copy">
                 <h3>The physical prototype</h3>
-                <p>A hand-made installation built from white-painted plywood combines the digital lesson, projected guidance, and the finished origami object in one physical experience.</p>
+                <p>A hand-made installation built from white-painted plywood combines the digital lesson and projected guidance.</p>
               </div>
             </section>
 
             <section class="fold-feature fold-feature--reverse">
               <div class="fold-copy">
                 <h3>Meet Nara</h3>
-                <p>Inspired by the sika deer in Nara Park, Nara guides visitors through their cultural learning journey with seven reactions that respond to progress and interaction.</p>
+                <p>Inspired by the sika deer in Nara Park, Nara guides visitors through their cultural learning journey with seven reactions that respond to progress and incorrect answers.</p>
               </div>
               <div class="fold-nara-visuals">
                 <figure class="fold-media">
@@ -211,12 +202,21 @@
               </div>
             </section>
 
+            <section class="fold-process-story" aria-label="How the Fold With Nara experience works">
+              <figure class="fold-process-image">
+                <img loading="lazy" src="assets/fold-visit-steps.jpg" alt="The eight steps in a Fold With Nara visit" />
+              </figure>
+              <figure class="fold-process-image fold-process-image--method">
+                <img loading="lazy" src="assets/fold-duolingo-method.jpg" alt="How Fold With Nara applies the Duolingo learning method" />
+              </figure>
+            </section>
+
             <section class="fold-feature">
               <figure class="fold-media fold-try-media">
                 <img loading="lazy" src="assets/fold-try-lesson.gif" alt="Animated Fold With Nara lesson interface" />
               </figure>
               <div class="fold-copy">
-                <h3>Try the lesson</h3>
+                <h3>Example Lesson</h3>
                 <p>Short questions, visible progress, and immediate feedback guide each visitor from the first cultural prompt to a completed origami fold.</p>
               </div>
             </section>
@@ -237,6 +237,6 @@
       </section>
     </main>
 
-    <script src="script.js?v=29"></script>
+    <script src="script.js?v=32"></script>
   </body>
 </html>
