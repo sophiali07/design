@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=32" />
+    <link rel="stylesheet" href="styles.css?v=46" />
   </head>
   <body data-view="intro">
     <div class="cursor" aria-hidden="true"><span></span></div>
@@ -25,96 +25,107 @@
 
     <main>
       <section class="intro-view" aria-labelledby="intro-title">
-        <button class="name-button" type="button" aria-label="Enter Sophia's work">
+        <div class="name-button">
           <h1 id="intro-title" aria-label="Sophia">
             <span>S</span><span>O</span><span>P</span><span>H</span><span>I</span><span>A</span>
           </h1>
-        </button>
+        </div>
         <p class="intro-line">Creativity, Design, and Technology.</p>
-        <p class="intro-hint">Click the name to enter <span>↘</span></p>
+        <p class="intro-hint">Scroll to enter <span>↓</span></p>
       </section>
 
       <section class="work-view" aria-label="Selected work">
         <div class="work-kicker">Selected works · 2024—2026</div>
         <div class="gallery" tabindex="-1">
-          <article class="project-slide is-active" data-index="0">
+          <section class="gallery-intro" aria-label="Project categories">
+            <nav class="project-filters" aria-label="Filter projects by discipline">
+              <button class="is-active" type="button" data-filter="all" aria-pressed="true">All <span>↗</span></button>
+              <button type="button" data-filter="uiux" aria-pressed="false">UI/UX <span>↗</span></button>
+              <button type="button" data-filter="product" aria-pressed="false">Product Design <span>↗</span></button>
+              <button type="button" data-filter="digital" aria-pressed="false">Digital Design <span>↗</span></button>
+              <button type="button" data-filter="spatial" aria-pressed="false">Spatial Design <span>↗</span></button>
+              <button type="button" data-filter="fine-art" aria-pressed="false">Fine Art <span>↗</span></button>
+            </nav>
+          </section>
+
+          <article class="project-slide is-active" data-index="0" data-categories="uiux">
             <a class="project-card" href="#fold-with-nara" data-project="fold-with-nara" data-detail-title="Fold With Nara" data-year="2026" data-medium="Figma, Adobe Illustrator, Adobe Photoshop" data-description="Created for a Duolingo design challenge, Fold With Nara is a pop-up installation that introduces Japanese culture through a guided origami experience visitors can complete in under ten minutes." aria-label="Open Fold With Nara project details">
               <img src="assets/uiux.webp" alt="Fold with Nara interaction design project" />
               <span class="project-reveal"><small>UI/UX · 2026</small><strong>Fold With Nara</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="1">
+          <article class="project-slide" data-index="1" data-categories="product">
             <a class="project-card project-wide" href="#environmental-council" data-project="environmental-council" data-detail-title="Environmental Council Merchandise" data-year="2024" data-medium="Rhino, Fusion 360, Wood" data-description="I noticed that students at my school rarely engage with environmental initiatives and often overlook the Environmental Council’s bulletin board. When I became Head of the Environmental Council, I wanted to create a more dynamic and interactive way to share our message.&#10;&#10;I designed a wooden sign combining the recycling symbol with my signature thumbs-up gesture to promote eco-conscious behavior. I sourced reclaimed wood from the school’s storage room, giving it a second life while emphasizing sustainability. I extended the concept into council merchandise, including a design that doubles as a cup mat or stamp." aria-label="Open Environmental Council Merchandise project details">
               <img src="assets/environmental-council.avif" alt="Environmental Council product design project" />
               <span class="project-reveal"><small>Product Design · 2024</small><strong>Environmental Council Merchandise</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="2">
+          <article class="project-slide" data-index="2" data-categories="product">
             <a class="project-card project-wide" href="#battery-recycling-box" data-project="battery-recycling-box" data-detail-title="Interactive Battery Recycling Box" data-year="2026" data-medium="Blender, WebAR, Cardboard box" data-description="To address low engagement with battery recycling at school, I created an interactive recycling bin that made the process both fun and educational.&#10;&#10;Inspired by childhood shape-sorting toys, I designed this battery collection box with carved shapes and an animated battery model in Blender, integrated into a WebAR experience. I repurposed discarded cardboard shipping boxes, and the project increased the school’s battery recycling by more than 50%." aria-label="Open Interactive Battery Recycling Box project details">
               <img src="assets/battery-box.avif" alt="Battery recycling box product design project" />
               <span class="project-reveal"><small>Product Design · 2026</small><strong>Interactive Battery Recycling Box</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="3">
+          <article class="project-slide" data-index="3" data-categories="uiux product">
             <a class="project-card project-wide" href="#tik-tock-glow" data-project="tik-tock-glow" data-detail-title="Interactive Time Management Device" data-year="2025" data-medium="Rhino, Arduino, Figma" data-description="Time often feels invisible and abstract, especially for students struggling with procrastination. Traditional timers and apps can feel cold, stressful, or easy to ignore. We designed Tik-Tock Glow to make time feel more present, calming, and intuitive.&#10;&#10;Shaped like an hourglass, the device uses soft, glowing light to indicate time passing. Flipping the hourglass starts the timer. As the countdown runs, light flows smoothly from top to bottom inside the translucent body, a visual metaphor for time slipping away. We programmed the light sequences using Arduino to create a soft and continuous movement, helping users experience time as tangible rather than stressful." aria-label="Open Tik-Tock Glow project details">
               <img src="assets/tik-tock-glow.jpg" alt="Tik-Tock Glow website, handmade prototype, and final product" />
               <span class="project-reveal"><small>Product Design · 2025</small><strong>Tik-Tock Glow</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="4">
+          <article class="project-slide" data-index="4" data-categories="digital">
             <a class="project-card project-wide" href="#book-cover-design" data-project="book-cover-design" data-detail-title="Book Cover Design" data-year="2026" data-medium="Adobe Illustrator, Adobe Photoshop" data-description="This collection book of student artwork celebrates the creativity of students from the 2025–2026 school year. The cover reflects how each student’s contribution leaves a lasting mark in our school community. Using Adobe Illustrator and Photoshop, I experiment with shape, typography, and composition to convey both individuality and collective memory." aria-label="Open Book Cover Design project details">
               <img src="assets/book-cover.avif" alt="Book cover design" />
               <span class="project-reveal"><small>Digital Design · 2026</small><strong>Book Cover Design</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="5">
+          <article class="project-slide" data-index="5" data-categories="spatial">
             <a class="project-card project-wide" href="#wood-wave" data-project="wood-wave" data-detail-title="Wood Wave" data-year="2025" data-medium="Wood, Wire" data-description="Traveling to Tokyo for the first time, I was captivated by the varied qualities of building facades in the Ginza district. Inspired by their repeated elements, I explored how repetition can generate movement and rhythm in architectural design. By layering wooden pieces in a spiral form, the structure creates patterns that shift with changes in light, shadow, and perspective." aria-label="Open Wood Wave project details">
               <img src="assets/wood-wave.avif" alt="Wood Wave spatial installation" />
               <span class="project-reveal"><small>Spatial Design · 2025</small><strong>Wood Wave</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="6">
+          <article class="project-slide project-slide-portrait" data-index="6" data-categories="fine-art">
             <a class="project-card project-portrait" href="#behind-the-blinds" data-project="behind-the-blinds" data-detail-title="Behind the Blinds" data-year="2025" data-medium="Charcoal" data-description="This self-portrait depicts me peeking through blinds, my tense expression partially obscured. I focus on the subtle curves where the blinds bend downward and my frowning expression with worried eyes to evoke a sense of tension and uncertainty. This work was selected for the RISD Pre-College Drawing Foundations Showcase and featured on the Pre-College website." aria-label="Open Behind the Blinds project details">
               <img src="assets/behind-the-blinds.avif" alt="Behind the Blinds drawing" />
               <span class="project-reveal"><small>Drawing · 2025</small><strong>Behind the Blinds</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="7">
+          <article class="project-slide project-slide-portrait" data-index="7" data-categories="fine-art">
             <a class="project-card project-portrait" href="#plastic-bags" data-project="plastic-bags" data-detail-title="Plastic Bags" data-year="2024" data-medium="Pencil" data-description="This still life drawing explores the visual tension between material and form through plastic bags filled with water. I focus on capturing the material’s transparency and refraction in pencil, highlighting how light bends, distorts, and refracts through both the plastic and the liquid." aria-label="Open Plastic Bags project details">
               <img src="assets/plastic-bags.avif" alt="Plastic Bags drawing" />
               <span class="project-reveal"><small>Drawing · 2024</small><strong>Plastic Bags</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="8">
+          <article class="project-slide project-slide-portrait" data-index="8" data-categories="fine-art">
             <a class="project-card project-portrait" href="#strength-of-hands" data-project="strength-of-hands" data-detail-title="Strength of Hands" data-year="2025" data-medium="Colored Pencil" data-description="This drawing focuses on the power and dynamism of the human hands. Working with colored pencils on toned paper, I layer warm and cool tones to emphasize the pressure points and the sense of energy beneath the skin. Through expressive color and anatomical details, I aim to convey the body’s vitality and presence in motion." aria-label="Open Strength of Hands project details">
               <img src="assets/strength-of-hands.avif" alt="Strength of Hands drawing" />
               <span class="project-reveal"><small>Drawing · 2025</small><strong>Strength of Hands</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="9">
+          <article class="project-slide project-slide-portrait" data-index="9" data-categories="fine-art">
             <a class="project-card project-portrait" href="#the-sunset" data-project="the-sunset" data-detail-title="The Sunset" data-year="2025" data-medium="Hard Pastel" data-description="On a boat in the Netherlands during my school’s ambassador trip to study sustainability and art history, I remember the warmth of sunlight on my skin. I want to make the viewer feel as though they are standing on the boat beside me, bathed in warm, golden light.&#10;&#10;Using hard pastels, I explore how rich, layered colors convey warmth, depth, and the reflections cast across the glass." aria-label="Open The Sunset project details">
               <img src="assets/the-sunset.jpg" alt="The Sunset hard pastel drawing" />
               <span class="project-reveal"><small>Drawing · 2025</small><strong>The Sunset</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="10">
+          <article class="project-slide project-slide-portrait" data-index="10" data-categories="fine-art">
             <a class="project-card project-portrait project-narrow" href="#passage-of-time" data-project="passage-of-time" data-detail-title="Passage of Time" data-year="2025" data-medium="Acrylic Paint" data-description="In this series, I explore the passage of time and its impact on space and light through the lens of a single house shown at three distinct times of day. I use different color palettes and angular forms to convey the emotional and atmospheric shifts that unfold from morning to midnight.&#10;&#10;The background colors represent different times of day, while the interior structure mirrors changing rhythms of life and moments of connection." aria-label="Open Passage of Time project details">
               <img src="assets/passage-of-time.jpg" alt="Passage of Time acrylic painting series" />
               <span class="project-reveal"><small>Painting · 2025</small><strong class="passage-title"><span>Passage</span><span>of</span><span>Time</span></strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide project-slide-portrait" data-index="11">
+          <article class="project-slide project-slide-portrait" data-index="11" data-categories="fine-art">
             <a class="project-card project-portrait" href="#glass-bottles" data-project="glass-bottles" data-detail-title="Glass Bottles" data-year="2024" data-medium="Watercolor, Colored Pencil" data-description="This group of bottles is drawn from a top-down foreshortened perspective, showing both the objects and their shadows. I am interested in capturing how sunlight passes through glass and transforms into shadow on the table’s surface. The varying shades of green and blue merge together, forming unexpected shapes and colors." aria-label="Open Glass Bottles project details">
               <img src="assets/glass-bottles.jpg" alt="Glass Bottles watercolor and colored-pencil drawing" />
               <span class="project-reveal"><small>Drawing · 2024</small><strong>Glass Bottles</strong><em>Project details ↗</em></span>
@@ -123,7 +134,7 @@
 
         </div>
 
-        <div class="gallery-status" aria-live="polite"><span class="current">01</span><i></i><span>12</span></div>
+        <div class="gallery-status" aria-live="polite"><span class="current">01</span><i></i><span class="total">12</span></div>
         <p class="scroll-hint">Scroll to browse</p>
       </section>
 
@@ -237,6 +248,6 @@
       </section>
     </main>
 
-    <script src="script.js?v=32"></script>
+    <script src="script.js?v=40"></script>
   </body>
 </html>

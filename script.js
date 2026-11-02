@@ -9,9 +9,12 @@ const aboutButton = document.querySelector(".nav-about");
 const aboutPanel = document.querySelector(".about-panel");
 const aboutClose = document.querySelector(".about-close");
 const gallery = document.querySelector(".gallery");
+const galleryIntro = document.querySelector(".gallery-intro");
+const filterButtons = [...document.querySelectorAll(".project-filters button")];
 const slides = [...document.querySelectorAll(".project-slide")];
 const projectCards = [...document.querySelectorAll(".project-card")];
 const currentCounter = document.querySelector(".gallery-status .current");
+const totalCounter = document.querySelector(".gallery-status .total");
 const projectDetail = document.querySelector(".project-detail");
 const projectDetailClose = document.querySelector(".project-detail-close");
 const projectDetailTitle = document.querySelector("#project-detail-title");
@@ -25,6 +28,7 @@ const finePointer = window.matchMedia("(pointer: fine)").matches;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const baseTitle = document.title;
 let activeProjectIndex = 0;
+let activeFilter = "all";
 let projectOpenedFromGallery = false;
 let aboutOpener = null;
 
@@ -125,7 +129,7 @@ function showIntro() {
   closeAbout({ restoreFocus: false });
   body.dataset.view = "intro";
   gallery.scrollTo({ top: 0, behavior: "auto" });
-  setActiveSlide(0);
+  showGalleryIndex();
 }
 
 function showAbout() {
@@ -137,11 +141,72 @@ function showAbout() {
   window.setTimeout(() => aboutClose.focus({ preventScroll: true }), 250);
 }
 
-nameButton.addEventListener("click", showWork);
 logo.addEventListener("click", showIntro);
 workButton.addEventListener("click", showWork);
 aboutButton.addEventListener("click", showAbout);
 aboutClose.addEventListener("click", () => closeAbout());
+
+let introTouchStartY = null;
+let workTouchStartY = null;
+
+window.addEventListener("wheel", (event) => {
+  if (body.dataset.view === "intro" && event.deltaY > 8) {
+    showWork();
+    return;
+  }
+
+  if (
+    body.dataset.view === "work" &&
+    event.deltaY < -8 &&
+    gallery.scrollTop <= 4 &&
+    !projectDetail.classList.contains("is-visible") &&
+    !aboutPanel.classList.contains("is-visible")
+  ) {
+    showIntro();
+  }
+}, { passive: true });
+
+introView.addEventListener("touchstart", (event) => {
+  introTouchStartY = event.touches[0]?.clientY ?? null;
+}, { passive: true });
+
+introView.addEventListener("touchend", (event) => {
+  if (introTouchStartY === null) return;
+  const endY = event.changedTouches[0]?.clientY ?? introTouchStartY;
+  if (introTouchStartY - endY > 42) showWork();
+  introTouchStartY = null;
+}, { passive: true });
+
+gallery.addEventListener("touchstart", (event) => {
+  workTouchStartY = gallery.scrollTop <= 4
+    ? (event.touches[0]?.clientY ?? null)
+    : null;
+}, { passive: true });
+
+gallery.addEventListener("touchend", (event) => {
+  if (workTouchStartY === null || body.dataset.view !== "work") return;
+  const endY = event.changedTouches[0]?.clientY ?? workTouchStartY;
+  if (endY - workTouchStartY > 42 && gallery.scrollTop <= 4) showIntro();
+  workTouchStartY = null;
+}, { passive: true });
+
+window.addEventListener("keydown", (event) => {
+  if (body.dataset.view === "intro" && ["ArrowDown", "PageDown", " "].includes(event.key)) {
+    event.preventDefault();
+    showWork();
+  }
+
+  if (
+    body.dataset.view === "work" &&
+    ["ArrowUp", "PageUp"].includes(event.key) &&
+    gallery.scrollTop <= 4 &&
+    !projectDetail.classList.contains("is-visible") &&
+    !aboutPanel.classList.contains("is-visible")
+  ) {
+    event.preventDefault();
+    showIntro();
+  }
+});
 
 projectCards.forEach((card, index) => {
   card.addEventListener("click", (event) => {
@@ -176,18 +241,56 @@ window.addEventListener("keydown", (event) => {
 
 function setActiveSlide(index) {
   slides.forEach((slide, slideIndex) => slide.classList.toggle("is-active", slideIndex === index));
-  currentCounter.textContent = String(index + 1).padStart(2, "0");
+  const visibleSlides = slides.filter((slide) => !slide.hidden);
+  const visibleIndex = visibleSlides.indexOf(slides[index]);
+  currentCounter.textContent = String(Math.max(visibleIndex, 0) + 1).padStart(2, "0");
+  totalCounter.textContent = String(visibleSlides.length).padStart(2, "0");
+  workView.classList.remove("is-index-visible");
 }
+
+function showGalleryIndex() {
+  slides.forEach((slide) => slide.classList.remove("is-active"));
+  workView.classList.add("is-index-visible");
+}
+
+function applyProjectFilter(filter) {
+  activeFilter = filter;
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === filter;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  slides.forEach((slide) => {
+    const categories = slide.dataset.categories.split(" ");
+    slide.hidden = filter !== "all" && !categories.includes(filter);
+  });
+
+  const visibleSlides = slides.filter((slide) => !slide.hidden);
+  totalCounter.textContent = String(visibleSlides.length).padStart(2, "0");
+  if (visibleSlides.length) {
+    const index = slides.indexOf(visibleSlides[0]);
+    setActiveSlide(index);
+    requestAnimationFrame(() => visibleSlides[0].scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" }));
+  }
+}
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => applyProjectFilter(button.dataset.filter));
+});
 
 let scrollFrame = 0;
 function updateActiveFromScroll() {
   scrollFrame = 0;
   const galleryRect = gallery.getBoundingClientRect();
   const center = galleryRect.top + galleryRect.height / 2;
+  const introRect = galleryIntro.getBoundingClientRect();
+  const introDistance = Math.abs(introRect.top + introRect.height / 2 - center);
   let closestIndex = 0;
   let closestDistance = Infinity;
 
   slides.forEach((slide, index) => {
+    if (slide.hidden) return;
     const rect = slide.getBoundingClientRect();
     const distance = Math.abs(rect.top + rect.height / 2 - center);
     if (distance < closestDistance) {
@@ -196,7 +299,8 @@ function updateActiveFromScroll() {
     }
   });
 
-  setActiveSlide(closestIndex);
+  if (introDistance < closestDistance) showGalleryIndex();
+  else setActiveSlide(closestIndex);
 }
 
 gallery.addEventListener("scroll", () => {
@@ -207,7 +311,7 @@ if (finePointer && !reduceMotion) {
   const cursor = document.querySelector(".cursor");
   const trails = document.querySelector(".cursor-trails");
   const letters = [...document.querySelectorAll(".name-button h1 span")];
-  const hoverTargets = document.querySelectorAll("a, button, .project-card");
+  const hoverTargets = document.querySelectorAll("a, button, .project-card, .name-button");
   let pointerX = innerWidth / 2;
   let pointerY = innerHeight / 2;
   let cursorX = pointerX;
@@ -219,6 +323,20 @@ if (finePointer && !reduceMotion) {
     cursorY += (pointerY - cursorY) * .22;
     cursor.style.left = `${cursorX}px`;
     cursor.style.top = `${cursorY}px`;
+
+    if (body.dataset.view === "intro") {
+      const ballRadius = 16;
+      letters.forEach((letter) => {
+        const rect = letter.getBoundingClientRect();
+        const nearestX = Math.max(rect.left, Math.min(cursorX, rect.right));
+        const nearestY = Math.max(rect.top, Math.min(cursorY, rect.bottom));
+        const isTouching = Math.hypot(cursorX - nearestX, cursorY - nearestY) <= ballRadius;
+        letter.classList.toggle("is-ball-contact", isTouching);
+      });
+    } else {
+      letters.forEach((letter) => letter.classList.remove("is-ball-contact"));
+    }
+
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
@@ -285,7 +403,7 @@ if (finePointer && !reduceMotion) {
   });
 }
 
-setActiveSlide(0);
+showGalleryIndex();
 
 const initialProjectIndex = projectIndexFromHash();
 if (initialProjectIndex !== -1) openProject(initialProjectIndex, "none");
