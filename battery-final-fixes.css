@@ -1,0 +1,10 @@
+.battery-media--sketch {
+  display: block;
+  clip-path: inset(0 0 16px 0) !important;
+}
+
+.battery-media--storyboard {
+  display: block;
+  box-sizing: border-box;
+  border-right: 2px solid #414754 !important;
+}

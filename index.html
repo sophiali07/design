@@ -8,8 +8,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=46" />
-  </head>
+    <link rel="stylesheet" href="styles.css?v=59" />
+  <link rel="stylesheet" href="battery-fixes.css">
+  <link rel="stylesheet" href="battery-final-fixes.css?v=20261103-2012">
+  <style id="battery-rendered-edge-fixes">
+    /* Hide the faint scan/table edge below the box sketch itself. */
+    .battery-media--sketch {
+      display: block !important;
+      clip-path: inset(0 0 30px 0) !important;
+    }
+
+    /* Complete the fourth storyboard panel at the image boundary. */
+    .battery-media--storyboard {
+      display: block !important;
+      box-sizing: border-box !important;
+      border-right: 3px solid #414754 !important;
+      box-shadow: inset -3px 0 0 #414754 !important;
+    }
+  </style>
+  <style id="battery-edge-final-fix-20261103">
+    /* Remove the scanned table/edge below the first battery-box sketch. */
+    #battery-recycling-box .battery-media--sketch,
+    .battery-media--sketch {
+      display: block !important;
+      clip-path: inset(0 0 64px 0) !important;
+      margin-bottom: -64px !important;
+    }
+
+    /* Restore the missing right edge on the fourth storyboard frame. */
+    #battery-recycling-box .battery-media--storyboard,
+    .battery-media--storyboard {
+      display: block !important;
+      box-sizing: border-box !important;
+      border-right: 3px solid #414754 !important;
+      box-shadow: inset -3px 0 0 #414754 !important;
+    }
+  </style>
+</head>
   <body data-view="intro">
     <div class="cursor" aria-hidden="true"><span></span></div>
     <div class="cursor-trails" aria-hidden="true"></div>
@@ -56,23 +91,23 @@
           </article>
 
           <article class="project-slide" data-index="1" data-categories="product">
-            <a class="project-card project-wide" href="#environmental-council" data-project="environmental-council" data-detail-title="Environmental Council Merchandise" data-year="2024" data-medium="Rhino, Fusion 360, Wood" data-description="I noticed that students at my school rarely engage with environmental initiatives and often overlook the Environmental Council’s bulletin board. When I became Head of the Environmental Council, I wanted to create a more dynamic and interactive way to share our message.&#10;&#10;I designed a wooden sign combining the recycling symbol with my signature thumbs-up gesture to promote eco-conscious behavior. I sourced reclaimed wood from the school’s storage room, giving it a second life while emphasizing sustainability. I extended the concept into council merchandise, including a design that doubles as a cup mat or stamp." aria-label="Open Environmental Council Merchandise project details">
-              <img src="assets/environmental-council.avif" alt="Environmental Council product design project" />
-              <span class="project-reveal"><small>Product Design · 2024</small><strong>Environmental Council Merchandise</strong><em>Project details ↗</em></span>
-            </a>
-          </article>
-
-          <article class="project-slide" data-index="2" data-categories="product">
             <a class="project-card project-wide" href="#battery-recycling-box" data-project="battery-recycling-box" data-detail-title="Interactive Battery Recycling Box" data-year="2026" data-medium="Blender, WebAR, Cardboard box" data-description="To address low engagement with battery recycling at school, I created an interactive recycling bin that made the process both fun and educational.&#10;&#10;Inspired by childhood shape-sorting toys, I designed this battery collection box with carved shapes and an animated battery model in Blender, integrated into a WebAR experience. I repurposed discarded cardboard shipping boxes, and the project increased the school’s battery recycling by more than 50%." aria-label="Open Interactive Battery Recycling Box project details">
-              <img src="assets/battery-box.avif" alt="Battery recycling box product design project" />
+<img src="assets/battery-box-sketch-2026.jpg" alt="Interactive battery recycling box sketch" / style="max-width:620px;width:100%;height:auto;object-fit:contain;display:block;margin-inline:auto;">
               <span class="project-reveal"><small>Product Design · 2026</small><strong>Interactive Battery Recycling Box</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
-          <article class="project-slide" data-index="3" data-categories="uiux product">
-            <a class="project-card project-wide" href="#tik-tock-glow" data-project="tik-tock-glow" data-detail-title="Interactive Time Management Device" data-year="2025" data-medium="Rhino, Arduino, Figma" data-description="Time often feels invisible and abstract, especially for students struggling with procrastination. Traditional timers and apps can feel cold, stressful, or easy to ignore. We designed Tik-Tock Glow to make time feel more present, calming, and intuitive.&#10;&#10;Shaped like an hourglass, the device uses soft, glowing light to indicate time passing. Flipping the hourglass starts the timer. As the countdown runs, light flows smoothly from top to bottom inside the translucent body, a visual metaphor for time slipping away. We programmed the light sequences using Arduino to create a soft and continuous movement, helping users experience time as tangible rather than stressful." aria-label="Open Tik-Tock Glow project details">
+          <article class="project-slide" data-index="2" data-categories="uiux product">
+            <a class="project-card project-wide" href="#tik-tock-glow" data-project="tik-tock-glow" data-detail-title="Interactive Time Management Device" data-year="2025" data-medium="Rhino, Arduino, Figma" data-description="Time often feels invisible and abstract, especially for students struggling with procrastination. Traditional timers and apps can feel cold, stressful, or easy to ignore. I designed Tik-Tock Glow to make time feel more present, calming, and intuitive.&#10;&#10;Shaped like an hourglass, the device uses soft, glowing light to indicate time passing. Flipping the hourglass starts the timer. As the countdown runs, light flows smoothly from top to bottom inside the translucent body, a visual metaphor for time slipping away. I programmed the light sequences using Arduino to create a soft and continuous movement, helping users experience time as tangible rather than stressful." aria-label="Open Tik-Tock Glow project details">
               <img src="assets/tik-tock-glow.jpg" alt="Tik-Tock Glow website, handmade prototype, and final product" />
-              <span class="project-reveal"><small>Product Design · 2025</small><strong>Tik-Tock Glow</strong><em>Project details ↗</em></span>
+              <span class="project-reveal"><small>Product Design · UI/UX · 2025</small><strong>Tik-Tock Glow</strong><em>Project details ↗</em></span>
+            </a>
+          </article>
+
+          <article class="project-slide" data-index="3" data-categories="product">
+            <a class="project-card project-wide" href="#environmental-council" data-project="environmental-council" data-detail-title="Environmental Council Merchandise" data-year="2024" data-medium="Rhino, Fusion 360, Wood" data-description="I noticed that students at my school rarely engage with environmental initiatives and often overlook the Environmental Council’s bulletin board. When I became Head of the Environmental Council, I wanted to create a more dynamic and interactive way to share our message.&#10;&#10;I designed a wooden sign combining the recycling symbol with my signature thumbs-up gesture to promote eco-conscious behavior. I sourced reclaimed wood from the school’s storage room, giving it a second life while emphasizing sustainability. I extended the concept into council merchandise, including a design that doubles as a cup mat or stamp." aria-label="Open Environmental Council Merchandise project details">
+              <img src="assets/environmental-council.avif" alt="Environmental Council product design project" />
+              <span class="project-reveal"><small>Product Design · 2024</small><strong>Environmental Council Merchandise</strong><em>Project details ↗</em></span>
             </a>
           </article>
 
@@ -232,6 +267,134 @@
               </div>
             </section>
           </div>
+
+          <div class="tik-tock-case fold-portfolio" hidden>
+            <header class="fold-overview">
+              <div class="tik-tock-overview-copy">
+                <p>Time often feels invisible and abstract, especially for students struggling with procrastination. Traditional timers and apps can feel cold, stressful, or easy to ignore. I designed Tik-Tock Glow to make time feel more present, calming, and intuitive.</p>
+                <p>Shaped like an hourglass, the device uses soft, glowing light to indicate time passing. Flipping the hourglass starts the timer. As the countdown runs, light flows smoothly from top to bottom inside the translucent body, a visual metaphor for time slipping away. I programmed the light sequences using Arduino to create a soft and continuous movement, helping users experience time as tangible rather than stressful.</p>
+              </div>
+              <div class="fold-meta" aria-label="Project information">
+                <span>UI/UX</span>
+                <span>Product Design</span>
+                <span>2025</span>
+                <span>Rhino · Arduino · Figma</span>
+              </div>
+            </header>
+
+            <figure class="tik-tock-hero">
+              <img src="assets/tik-tock-website-hero-white.png" alt="Tik-Tock Glow website displayed in a laptop mockup" />
+            </figure>
+
+            <section class="fold-feature tik-tock-sketch-feature">
+              <figure class="fold-media tik-tock-sketch">
+                <img loading="lazy" src="assets/tik-tock-sketch.jpg" alt="Early hand-drawn form studies for Tik-Tock Glow" />
+              </figure>
+              <div class="fold-copy">
+                <h3>Product sketch</h3>
+                <p>I explored the hourglass form where there is a base and a frame around the main form.</p>
+              </div>
+            </section>
+
+            <section class="fold-feature fold-feature--reverse tik-tock-prototype-stage">
+              <div class="fold-copy">
+                <h3>Hand-made prototype</h3>
+                <p>The hand-made model established the hourglass form, supporting frame, translucent body, and timer base.</p>
+              </div>
+              <figure class="fold-media tik-tock-prototype-media">
+                <img loading="lazy" src="assets/tik-tock-handmade-prototype.jpg" alt="Hand-made Tik-Tock Glow prototype" />
+              </figure>
+            </section>
+
+            <section class="fold-feature tik-tock-prototype-stage">
+              <figure class="fold-media tik-tock-working-prototype">
+                <img loading="lazy" src="assets/tik-tock-working-blue-hq.png" alt="Working Tik-Tock Glow prototype illuminated in blue with the timer set to 07:23" />
+                <img loading="lazy" src="assets/tik-tock-working-soft-hq.png" alt="Working Tik-Tock Glow prototype with a softer blue light and the timer set to 07:23" />
+              </figure>
+              <div class="fold-copy">
+                <h3>Working prototype</h3>
+                <p>The final prototype tests the programmed light sequence as it moves through the translucent hourglass body.</p>
+              </div>
+            </section>
+
+            <section class="fold-feature">
+              <figure class="fold-media tik-tock-demo">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Animated walkthrough of the Tik-Tock Glow website">
+                  <source src="assets/tik-tock-demo-01-hq.m4v" type="video/x-m4v" />
+                </video>
+              </figure>
+              <div class="fold-copy">
+                <h3>Designing the digital experience</h3>
+                <p>The website introduces the device as a calm, screen-free timer, then guides visitors through its purpose and interaction in a warm visual system.</p>
+              </div>
+            </section>
+
+            <section class="fold-feature fold-feature--reverse">
+              <div class="fold-copy">
+                <h3>Choosing a light mode</h3>
+                <p>Visitors can set the timer, compare white, yellow, and blue light modes, and apply their preferred color before beginning a focus session.</p>
+              </div>
+              <figure class="fold-media tik-tock-demo">
+                <video autoplay muted loop playsinline preload="metadata" aria-label="Animated Tik-Tock Glow color selection experience">
+                  <source src="assets/tik-tock-demo-02-hq.m4v" type="video/x-m4v" />
+                </video>
+              </figure>
+            </section>
+          </div>
+
+          <div class="battery-case fold-portfolio" hidden>
+            <header class="fold-overview">
+              <div class="tik-tock-overview-copy">
+                <p>To address low engagement with battery recycling at school, I created an interactive recycling bin that made the process both fun and educational.</p>
+                <p>Inspired by childhood shape-sorting toys, I designed this battery collection box with carved shapes and an animated battery model in Blender, integrated into a WebAR experience. I repurposed discarded cardboard shipping boxes, and the project increased the school’s battery recycling by more than 50%.</p>
+              </div>
+              <div class="fold-meta" aria-label="Project information">
+                <span>Product Design</span>
+                <span>2026</span>
+                <span>Blender · WebAR · Cardboard</span>
+              </div>
+            </header>
+
+            <section class="fold-feature battery-feature">
+              <figure class="fold-media battery-media battery-media--sketch">
+      <img loading="lazy" src="assets/battery-box-sketch-white.jpg" alt="Initial sketch for the interactive battery recycling box" />
+              </figure>
+              <div class="fold-copy">
+                <h3>Box sketch</h3>
+                <p>Easy to obtain and fast to produce. I used an Amazon cardboard box as the base material and a pre-made laser-cutting file for the battery shapes.</p>
+              </div>
+            </section>
+
+            <section class="fold-feature fold-feature--reverse battery-feature">
+              <div class="fold-copy">
+    <h3>Story Board</h3>
+                <p>I developed four shaped openings that turn battery sorting into an intuitive matching activity, making the recycling process more playful and easy to understand.</p>
+              </div>
+              <figure class="fold-media battery-media battery-media--wide">
+<img loading="lazy" src="assets/battery-storyboard-2026.jpg" alt="Battery recycling experience storyboard" / style="max-width:820px;width:100%;height:auto;object-fit:contain;display:block;margin-inline:auto;">
+              </figure>
+            </section>
+
+            <section class="fold-feature battery-feature">
+              <figure class="fold-media battery-media battery-media--portrait">
+<img loading="lazy" src="assets/battery-physical-box-2026.jpg" alt="Physical interactive battery recycling box prototype" / style="max-width:540px;width:100%;height:auto;object-fit:contain;display:block;margin-inline:auto;">
+              </figure>
+              <div class="fold-copy">
+                <h3>Physical recycling box</h3>
+                <p>I repurposed a discarded cardboard shipping box and cut the shaped openings into its surface, giving the material a second life while creating a durable collection point for the school.</p>
+              </div>
+            </section>
+
+            <section class="fold-feature fold-feature--reverse battery-feature">
+              <div class="fold-copy">
+                <h3>WebAR interaction</h3>
+                <p>I animated a battery model in Blender and connected it to a WebAR experience so students could see the recycling process come alive after interacting with the box.</p>
+              </div>
+    <figure class="fold-media battery-media battery-media--webar">
+      <img loading="lazy" src="assets/battery-webar-original.png" alt="WebAR interaction created for the battery recycling box" />
+              </figure>
+            </section>
+          </div>
         </div>
       </section>
 
@@ -248,6 +411,6 @@
       </section>
     </main>
 
-    <script src="script.js?v=40"></script>
+    <script src="script.js?v=42"></script>
   </body>
 </html>

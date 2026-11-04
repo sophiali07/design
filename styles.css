@@ -60,6 +60,7 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .project-card { --rx: 0deg; --ry: 0deg; --mx: 0px; --my: 0px; position: relative; display: grid; place-items: center; width: min(58vw, 830px); height: min(60vh, 660px); transform: perspective(1200px) translate3d(var(--mx), var(--my), 0) rotateX(var(--rx)) rotateY(var(--ry)) scale(.91); opacity: .28; filter: blur(9px); transition: transform .85s var(--ease), opacity .75s var(--ease), filter .75s var(--ease); }
 .project-slide.is-active .project-card { transform: perspective(1200px) translate3d(var(--mx), var(--my), 0) rotateX(var(--rx)) rotateY(var(--ry)) scale(1); opacity: 1; filter: blur(0); }
 .project-card img { display: block; width: 100%; height: 100%; object-fit: contain; transition: filter .55s var(--ease), transform .65s var(--ease), opacity .55s var(--ease); }
+.project-card[data-project="fold-with-nara"] img { width: 100%; height: auto; clip-path: inset(0 0 5% 0); }
 .project-card[data-project="tik-tock-glow"] img { width: 100%; height: auto; clip-path: inset(4px 0 0); }
 .project-card.project-wide { width: min(70vw, 1040px); }
 .project-card.project-square { width: min(48vw, 650px); height: min(62vh, 650px); }
@@ -94,8 +95,8 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .project-detail-description { grid-column: 2; grid-row: 1; align-self: center; max-width: 470px; margin: 0; white-space: pre-line; font-size: clamp(.86rem, 1.05vw, 1.05rem); line-height: 1.58; letter-spacing: 0; }
 .project-detail-facts { grid-row: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; }
 .project-detail-facts > span { max-width: 100%; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: .62rem; line-height: 1; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
-.project-detail:not(.is-drawing-detail):not(.is-fold-detail) .project-detail-visual { display: flex; align-items: flex-start; justify-content: center; height: auto; overflow: visible; }
-.project-detail:not(.is-drawing-detail):not(.is-fold-detail) .project-detail-visual img { width: auto; height: auto; max-width: 100%; max-height: 62vh; object-fit: contain; transform: none; }
+.project-detail:not(.is-drawing-detail):not(.is-fold-detail):not(.is-tik-tock-detail):not(.is-battery-detail) .project-detail-visual { display: flex; align-items: flex-start; justify-content: center; height: auto; overflow: visible; }
+.project-detail:not(.is-drawing-detail):not(.is-fold-detail):not(.is-tik-tock-detail):not(.is-battery-detail) .project-detail-visual img { width: auto; height: auto; max-width: 100%; max-height: 62vh; object-fit: contain; transform: none; }
 .project-detail.is-portrait-detail .project-detail-layout { width: fit-content; max-width: 100%; grid-template-columns: max-content minmax(300px, 440px); column-gap: clamp(44px, 5vw, 78px); row-gap: 36px; align-items: center; justify-content: center; }
 .project-detail.is-portrait-detail .project-detail-media { justify-self: end; width: max-content; max-width: 100%; }
 .project-detail.is-portrait-detail .project-detail-visual { height: auto; overflow: visible; }
@@ -103,12 +104,27 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .project-detail.is-fold-detail .project-detail-layout { display: none; }
 .project-detail.is-fold-detail .project-detail-page { width: min(100%, 1240px); }
 .project-detail.is-fold-detail .project-detail-page > h2 { margin-bottom: clamp(38px, 5vh, 58px); }
+.project-detail.is-tik-tock-detail .project-detail-layout,
+.project-detail.is-battery-detail .project-detail-layout { display: none; }
+.project-detail.is-tik-tock-detail .project-detail-page,
+.project-detail.is-battery-detail .project-detail-page { width: min(100%, 1240px); }
+.project-detail.is-tik-tock-detail .project-detail-page > h2,
+.project-detail.is-battery-detail .project-detail-page > h2 { margin-bottom: clamp(38px, 5vh, 58px); }
 
 .fold-wix-case { display: grid; }
 .fold-wix-case[hidden] { display: none; }
+.tik-tock-case,
+.battery-case {
+  display: grid;
+  row-gap: clamp(104px, 10vw, 148px);
+}
+.tik-tock-case[hidden],
+.battery-case[hidden] { display: none; }
 .fold-portfolio { width: min(100%, 1180px); margin-inline: auto; gap: clamp(76px, 8vw, 118px); padding-bottom: 12vh; }
 .fold-overview { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding: 28px 0; border-block: 1px solid var(--line); }
 .fold-overview > p { max-width: 650px; margin: 0; font-size: clamp(1.05rem, 1.65vw, 1.42rem); line-height: 1.48; letter-spacing: -.02em; }
+.tik-tock-overview-copy { max-width: 700px; display: grid; gap: 18px; }
+.tik-tock-overview-copy p { margin: 0; font-size: clamp(1rem, 1.42vw, 1.26rem); line-height: 1.55; letter-spacing: -.02em; }
 .fold-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .fold-meta span { padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: .62rem; line-height: 1; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
 .fold-feature { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .8fr); gap: clamp(44px, 5.5vw, 82px); align-items: center; }
@@ -121,16 +137,136 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .fold-process-image { position: relative; width: min(100%, 1040px); aspect-ratio: 3419 / 1780; margin: 0 auto; overflow: hidden; }
 .fold-process-image img { display: block; width: 100%; height: auto; }
 .fold-process-image--method::after { content: none; }
-.project-detail[data-project="tik-tock-glow"] .project-detail-visual img { clip-path: inset(12px 0 0); }
-.project-detail[data-project="tik-tock-glow"] .project-detail-visual { position: relative; overflow: hidden; }
-.project-detail[data-project="tik-tock-glow"] .project-detail-visual::before {
+.tik-tock-hero {
+  margin: 0;
+  overflow: hidden;
+  background: #fff;
+}
+.tik-tock-hero img { display: block; width: 100%; height: auto; }
+.tik-tock-demo {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+.tik-tock-demo img,
+.tik-tock-demo video { display: block; width: 100%; height: auto; }
+.tik-tock-demo::before,
+.tik-tock-demo::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background: #fff;
+}
+.tik-tock-demo::before { top: 0; right: -1px; bottom: 0; width: 12px; }
+.tik-tock-demo::after { right: 0; bottom: -1px; left: 0; height: 20px; }
+.tik-tock-sketch { overflow: hidden; background: #f7f7f5; }
+.tik-tock-sketch img { display: block; width: 100%; height: auto; filter: contrast(.96); }
+.tik-tock-prototype-stage { grid-template-columns: minmax(280px, .8fr) minmax(0, 1.15fr); }
+.tik-tock-prototype-stage:not(.fold-feature--reverse) { grid-template-columns: minmax(0, 1.15fr) minmax(280px, .8fr); }
+.tik-tock-prototype-media { width: min(100%, 560px); justify-self: center; }
+.tik-tock-prototype-media img { display: block; width: 100%; height: auto; }
+.tik-tock-working-prototype {
+  width: min(100%, 420px);
+  justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+.tik-tock-working-prototype img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: auto;
+}
+.battery-case { row-gap: clamp(92px, 9vw, 138px); }
+.battery-feature { align-items: center; }
+.battery-media {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  overflow: hidden;
+  background: #f7f7f5;
+}
+.battery-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.battery-media--landscape { aspect-ratio: 4 / 3; }
+.battery-media--landscape img { height: 100%; }
+.battery-media--sketch {
+  width: min(100%, 480px);
+  aspect-ratio: 2230 / 1580;
+  justify-self: center;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.battery-media--sketch img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+.battery-media--sketch::before,
+.battery-media--sketch::after {
   content: "";
   position: absolute;
   z-index: 2;
-  inset: 0 0 auto;
-  height: 14px;
-  background: var(--paper);
+  background: #fff;
   pointer-events: none;
+}
+.battery-media--sketch::before {
+  inset: 0;
+  height: auto;
+  background:
+    linear-gradient(#fff, #fff) top / 100% 16px no-repeat,
+    linear-gradient(#fff, #fff) bottom / 100% 38px no-repeat,
+    linear-gradient(#fff, #fff) left / 12px 100% no-repeat,
+    linear-gradient(#fff, #fff) right / 12px 100% no-repeat;
+}
+.battery-media--sketch::after {
+  display: none;
+}
+.battery-media--wide {
+  width: min(100%, 500px);
+  aspect-ratio: 3 / 1;
+  justify-self: center;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.battery-media--wide img,
+.battery-media--webar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.battery-media--webar {
+  width: min(100%, 390px);
+  aspect-ratio: 43 / 34;
+  justify-self: center;
+  background: #fff;
+}
+.battery-media--portrait {
+  width: min(100%, 360px);
+  max-height: 600px;
+  justify-self: center;
+  background: #fff;
+}
+.battery-media--portrait img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  filter: contrast(1.08) saturate(1.04);
+  image-rendering: auto;
 }
 .fold-prototype-full { width: min(100%, 340px); justify-self: center; }
 .fold-prototype-full img { width: 100%; height: auto; }
@@ -215,9 +351,12 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
   .project-detail.is-portrait-detail .project-detail-visual img { width: auto; height: auto; max-width: 100%; max-height: 56vh; }
   .project-detail-description { grid-column: 1; grid-row: 3; max-width: 640px; margin-inline: auto; font-size: .94rem; }
   .fold-portfolio { gap: 64px; }
+  .tik-tock-case { row-gap: 82px; }
   .fold-overview { grid-template-columns: 1fr; align-items: start; }
   .fold-meta { justify-content: flex-start; }
   .fold-feature, .fold-feature--reverse { grid-template-columns: 1fr; gap: 26px; }
+  .tik-tock-prototype-stage,
+  .tik-tock-prototype-stage:not(.fold-feature--reverse) { grid-template-columns: 1fr; }
   .fold-feature--prototype { justify-content: stretch; }
   .fold-feature--reverse .fold-copy { grid-row: 2; }
   .fold-prototype-full { width: min(78vw, 310px); }
