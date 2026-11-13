@@ -9,3 +9,4 @@
   .about-copy { margin-right: 0; }
   .about-copy .about-hello { font-size: clamp(2.2rem, 11vw, 3.2rem); }
 }
+.about-copy .about-hello span { color: rgb(70, 108, 160); }
