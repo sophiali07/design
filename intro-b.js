@@ -22,7 +22,7 @@
   source.onload = () => { sourceReady = true; draw(performance.now()); };
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const NAME = "sophia";
+  const NAME = "Sophia";
   const NAME_GLYPHS = ["#", "@", "&", "%", "#", "$"];
   const NAME_FONT = '"Space Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, monospace';
   const MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
@@ -35,7 +35,7 @@
   let W = 0, H = 0, dpr = 1, mobile = false;
   let cols = 0, rows = 0, cellW = 7, cellH = 12, fontPx = 11;
   let gust = 0, lastPointer = null;
-  let keepClear = new Uint8Array(0), cellPhase = new Float32Array(0), nameCells = new Uint8Array(0);
+  let cellPhase = new Float32Array(0), nameCells = new Uint8Array(0);
 
   function layout() {
     W = view.clientWidth; H = view.clientHeight;
@@ -51,19 +51,6 @@
     sample.width = nameMask.width = cols;
     sample.height = nameMask.height = rows;
     cellPhase = new Float32Array(cols * rows).map(() => Math.random());
-
-    // keep the page text readable
-    keepClear = new Uint8Array(cols * rows);
-    const box = view.getBoundingClientRect();
-    const targets = [...view.querySelectorAll(".intro-line, .intro-hint"), ...document.querySelectorAll(".site-header .logo, .site-header nav > *")];
-    for (const el of targets) {
-      const r = el.getBoundingClientRect();
-      if (!r.width) continue;
-      const pad = 10;
-      const x0 = Math.max(0, Math.floor((r.left - box.left - pad) / cellW)), x1 = Math.min(cols - 1, Math.ceil((r.right - box.left + pad) / cellW));
-      const y0 = Math.max(0, Math.floor((r.top - box.top - pad) / cellH)), y1 = Math.min(rows - 1, Math.ceil((r.bottom - box.top + pad) / cellH));
-      for (let y = y0; y <= y1; y += 1) keepClear.fill(1, y * cols + x0, y * cols + x1 + 1);
-    }
 
     // the name is still, so its cells are worked out once
     nameCtx.setTransform(1, 0, 0, 1, 0, 0);
@@ -115,6 +102,16 @@
       const p = placement(t);
       ctx.globalAlpha = 0.3;
       ctx.drawImage(source, p.x, p.y, p.w, p.h);
+      // the window shadow (top-left of the print) a little deeper
+      ctx.save();
+      const wx = p.x + p.w * 0.315, wy = p.y + p.h * 0.5;
+      ctx.beginPath();
+      ctx.rect(p.x - 10, p.y - 10, wx - p.x + 10, wy - p.y + p.h * 0.06 + 10);
+      ctx.clip();
+      ctx.globalAlpha = 0.5;
+      ctx.globalCompositeOperation = "multiply";
+      ctx.drawImage(source, p.x, p.y, p.w, p.h);
+      ctx.restore();
       ctx.globalAlpha = 1;
       sampleCtx.setTransform(cols / W, 0, 0, rows / H, 0, 0);
       sampleCtx.drawImage(source, p.x, p.y, p.w, p.h);
@@ -132,8 +129,7 @@
       const shift = reduceMotion ? 0 : Math.round(Math.sin(y * 0.11 + t * 0.55) * 1.3 + Math.sin(y * 0.043 - t * 0.31) * 1.6 + gust * 2);
       for (let x = 0; x < cols; x += 1) {
         const c = y * cols + x;
-        if (keepClear[c]) { wall += " "; faint += " "; name += " "; continue; }
-        if (nameCells[c]) {
+                if (nameCells[c]) {
           wall += " "; faint += " ";
           const q = cellPhase[c];
           name += NAME_GLYPHS[(q < 0.2 && !reduceMotion ? Math.floor(q * 53 + tick) : Math.floor(q * 17)) % NAME_GLYPHS.length];
