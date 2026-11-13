@@ -7,9 +7,9 @@
     <title>Sophia Li — Design Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=60" />
-    <link rel="stylesheet" href="intro-shadow.css?v=1" />
+    <link rel="stylesheet" href="intro-shadow.css?v=6" />
   <link rel="stylesheet" href="battery-fixes.css">
   <link rel="stylesheet" href="battery-final-fixes.css?v=20261113">
   <style id="battery-rendered-edge-fixes">
@@ -399,7 +399,16 @@
     </main>
 
     <script src="script.js?v=42"></script>
-    <script src="intro-shadow.js?v=1"></script>
+    <script>
+      // Front page option: ?intro=a or ?intro=b (default b)
+      (() => {
+        const pick = new URLSearchParams(location.search).get("intro") === "a" ? "a" : "b";
+        document.documentElement.dataset.intro = pick;
+        const s = document.createElement("script");
+        s.src = `intro-${pick}.js?v=1`;
+        document.body.append(s);
+      })();
+    </script>
   <script src="battery-final-patch.js?v=20261113"></script>
 </body>
 </html>

@@ -1,12 +1,8 @@
-/* Front page: sunlit wall with window shadow (see intro-shadow.js). */
-.intro-view { background: #f3eee4; overflow: hidden; }
+/* Front page: ASCII cyanotype wall. Option A = intro-a.js, option B = intro-b.js
+   (pick with ?intro=a or ?intro=b; the default is set in index.html). */
+.intro-view { background: #f8f8f6; overflow: hidden; }
 .intro-wall { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
-.intro-grain {
-  position: absolute; inset: -40px; z-index: 1; pointer-events: none; opacity: .32; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .42 0 0 0 0 .38 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: intro-grain 1.2s steps(4) infinite;
-}
-@keyframes intro-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-14px, 9px); } 50% { transform: translate(11px, -12px); } 75% { transform: translate(-7px, -5px); } 100% { transform: translate(0, 0); } }
 .intro-view .name-button { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .intro-view .intro-line, .intro-view .intro-hint { z-index: 2; }
-@media (prefers-reduced-motion: reduce) { .intro-grain { animation: none; } }
+/* Option B: the statement in the same blue, set in monospace */
+html[data-intro="b"] .intro-view .intro-line { color: rgb(58, 96, 148); font-family: "Space Mono", "DejaVu Sans Mono", Menlo, monospace; font-size: clamp(.8rem, 1.1vw, 1rem); letter-spacing: -.01em; line-height: 1.5; }
