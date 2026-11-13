@@ -18,31 +18,22 @@
 .project-slide.is-active .project-card[data-project="staso"]:focus-visible img { filter: none; transform: none; }
 .project-slide.is-active .project-card[data-project="staso"]:hover .staso-art,
 .project-slide.is-active .project-card[data-project="staso"]:focus-visible .staso-art { filter: blur(13px) brightness(.48); transform: scale(1.045); }
-/* Logo intro, after the Staso brand animation: the tile tumbles in and settles,
-   then the wordmark slides out from behind it. Replays each time the card comes into focus. */
-.project-card[data-project="staso"] .staso-intro { overflow: hidden; }
-.project-card[data-project="staso"] .staso-intro .staso-wordmark,
-.project-card[data-project="staso"] .staso-intro .staso-mark { position: absolute; height: auto !important; }
-.project-card[data-project="staso"] .staso-intro .staso-wordmark { left: 29%; top: 43%; width: 24.56% !important; clip-path: inset(0 0 0 0); }
-.project-card[data-project="staso"] .staso-intro .staso-mark { left: 59.6%; top: 38.8%; width: 11.6% !important; filter: drop-shadow(0 6px 14px rgba(40, 60, 120, .12)); }
-.project-slide.is-active .project-card[data-project="staso"] .staso-mark { animation: staso-mark-in 1.35s cubic-bezier(.2, .8, .2, 1) .15s both; }
-.project-slide.is-active .project-card[data-project="staso"] .staso-wordmark { animation: staso-word-in .8s cubic-bezier(.22, .9, .25, 1) 1.05s both; }
-@keyframes staso-mark-in {
-  0%   { opacity: 0; transform: translate(-60%, 10%) scale(.22) rotate(-38deg); }
-  18%  { opacity: 1; }
-  60%  { transform: translate(0, 0) scale(1.07) rotate(9deg); }
-  80%  { transform: scale(.98) rotate(-2deg); }
-  100% { opacity: 1; transform: none; }
+.project-card[data-project="staso"] .staso-logo-mark {
+  position: absolute; left: 22.035%; top: 8.272%; width: 1.713% !important; height: auto !important;
+  transform-origin: 50% 50%;
+  animation: staso-logo 11.8s cubic-bezier(.65, 0, .35, 1) infinite;
+  will-change: transform;
 }
-@keyframes staso-word-in {
-  0%   { opacity: 0; transform: translateX(42%); clip-path: inset(0 0 0 100%); }
-  35%  { opacity: 1; }
-  100% { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+@keyframes staso-logo {
+  /* ~1.8s spin, then 10s still before it repeats */
+  0%     { transform: perspective(240px) rotateY(0deg) translateY(0) scale(1); }
+  2.5%   { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
+  10%    { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
+  13%    { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
+  15.3%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .project-slide.is-active .project-card[data-project="staso"] .staso-mark,
-  .project-slide.is-active .project-card[data-project="staso"] .staso-wordmark { animation: none; }
-}
+
+@media (prefers-reduced-motion: reduce) { .project-card[data-project="staso"] .staso-logo-mark { animation: none; } }
 @media (max-width: 760px), (hover: none) {
   .project-slide.is-active .project-card[data-project="staso"]:hover .staso-art { filter: none; transform: none; }
 }
