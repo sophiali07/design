@@ -1,4 +1,4 @@
-// About page: soft, grainy blue leaf shadows falling across a white wall,
+// About page: soft, grainy blue leaf shadows drawn in ASCII falling across a white wall,
 // like a riso / cyanotype print. Kept to the left so the text stays the focus.
 // Leaves sway slowly and the grain shimmers.
 (() => {
@@ -17,6 +17,10 @@
   const [nearBlur, nearBlurCtx] = make();
   const [mask, maskCtx] = make();      // half res, combined shadow
   const [print, printCtx] = make();    // half res, dithered ink
+  const [grid, gridCtx] = make();      // one pixel per character cell
+  const MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
+  const LEVELS = [[" "], [".", "`", "'"], [":", ",", "-"], ["~", "-", ";", "\""], ["=", "+", "/"], ["+", "*", "x"], ["x", "X", "%"], ["X", "#", "&"]];
+  let cols = 0, rows = 0, cellW = 6, cellH = 11, fontPx = 9, cellPhase = new Float32Array(0);
 
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasFilter = "filter" in CanvasRenderingContext2D.prototype;
@@ -58,6 +62,13 @@
     mask.width = print.width = MW; mask.height = print.height = MH;
     for (const c of [far, farBlur, near, nearBlur]) { c.width = Math.max(1, Math.round(W / 4)); c.height = Math.max(1, Math.round(H / 4)); }
     out = printCtx.createImageData(MW, MH);
+    fontPx = mobile ? 7 : 9;
+    ctx.font = `${fontPx}px ${MONO}`;
+    cellW = Math.max(4, ctx.measureText("X").width);
+    cellH = Math.round(fontPx * 1.18);
+    cols = Math.ceil(W / cellW) + 1; rows = Math.ceil(H / cellH) + 1;
+    grid.width = cols; grid.height = rows;
+    cellPhase = new Float32Array(cols * rows).map(() => Math.random());
     const nr = rng(5);
     noise = new Float32Array(MW * MH).map(() => nr());
 
@@ -156,7 +167,7 @@
       if (a > 0.02) {
         const v = Math.pow(a, 0.8);
         const z = noise[(i + shift) % n];
-        alpha = v > z ? 210 : v > z * 0.5 ? 70 : 0;
+        alpha = v > z ? 105 : v > z * 0.5 ? 40 : 0;
       }
       dst[p] = INK[0]; dst[p + 1] = INK[1]; dst[p + 2] = INK[2]; dst[p + 3] = alpha;
     }
@@ -167,6 +178,32 @@
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(print, 0, 0, canvas.width, canvas.height);
+
+    // ASCII characters over the shadows, denser where the shadow is deeper
+    gridCtx.setTransform(1, 0, 0, 1, 0, 0);
+    gridCtx.clearRect(0, 0, cols, rows);
+    gridCtx.drawImage(mask, 0, 0, cols, rows);
+    const gd = gridCtx.getImageData(0, 0, cols, rows).data;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.font = `${fontPx}px ${MONO}`;
+    ctx.textBaseline = "top";
+    const lastLevel = LEVELS.length - 1;
+    const tick = Math.floor(t * 5);
+    for (let y = 0; y < rows; y += 1) {
+      let faint = "", strong = "";
+      for (let x = 0; x < cols; x += 1) {
+        const c = y * cols + x;
+        let d = gd[c * 4 + 3] / 255;
+        if (d < 0.05) { faint += " "; strong += " "; continue; }
+        d = Math.min(1, d * 1.35);
+        const set = LEVELS[Math.max(1, Math.round(Math.pow(d, 0.8) * lastLevel))];
+        const q = cellPhase[c];
+        const g = set[(q < 0.18 && !reduceMotion ? Math.floor(q * 97 + tick) : Math.floor(q * 31)) % set.length];
+        if (d < 0.45) { faint += g; strong += " "; } else { strong += g; faint += " "; }
+      }
+      ctx.fillStyle = "rgba(84, 122, 170, 0.6)"; ctx.fillText(faint, 0, y * cellH);
+      ctx.fillStyle = "rgb(66, 104, 156)"; ctx.fillText(strong, 0, y * cellH);
+    }
   }
 
   let last = 0;
