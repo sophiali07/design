@@ -1,7 +1,7 @@
 // Front page, option B: mostly ASCII. The cyanotype wall redrawn in fine
 // blue characters over a faint hint of its soft shadows. The shadows drift,
-// sway and shimmer; the name is set in a bold monospace built from dense
-// characters and stays still.
+// sway and shimmer; the name is built from dense characters and sways
+// gently with the shadows.
 (() => {
   const view = document.querySelector(".intro-view");
   if (!view) return;
@@ -127,10 +127,12 @@
       const shift = reduceMotion ? 0 : Math.round(Math.sin(y * 0.11 + t * 0.55) * 1.3 + Math.sin(y * 0.043 - t * 0.31) * 1.6 + gust * 2);
       for (let x = 0; x < cols; x += 1) {
         const c = y * cols + x;
-                if (nameCells[c]) {
+                // the name sways with the shadows, a little more gently
+        const nx = Math.min(cols - 1, Math.max(0, x - Math.round(shift * 0.6)));
+        if (nameCells[y * cols + nx]) {
           wall += " "; faint += " "; deep += " ";
           const q = cellPhase[c];
-          name += NAME_GLYPHS[(q < 0.2 && !reduceMotion ? Math.floor(q * 53 + tick) : Math.floor(q * 17)) % NAME_GLYPHS.length];
+          name += NAME_GLYPHS[(q < 0.45 && !reduceMotion ? Math.floor(q * 53 + tick) : Math.floor(q * 17)) % NAME_GLYPHS.length];
           continue;
         }
         name += " ";
