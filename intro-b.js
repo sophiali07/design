@@ -30,6 +30,7 @@
   const INK = "rgb(58, 96, 148)";
   const INK_FAINT = "rgba(84, 122, 170, 0.6)";
   const NAME_INK = "rgb(30, 60, 108)";
+  const INK_DEEP = "rgb(44, 78, 130)";
   const LEVELS = [[" "], [".", "`", "'"], [":", ",", "-"], ["~", "-", ";", "\""], ["=", "+", "/"], ["+", "*", "x"], ["x", "X", "%"], ["X", "#", "&"]];
 
   let W = 0, H = 0, dpr = 1, mobile = false;
@@ -100,23 +101,20 @@
     sampleCtx.fillRect(0, 0, cols, rows);
     if (sourceReady) {
       const p = placement(t);
-      ctx.globalAlpha = 0.3;
+      ctx.globalAlpha = 0.22;
       ctx.drawImage(source, p.x, p.y, p.w, p.h);
-      // the window shadow (top-left of the print) a little deeper
-      ctx.save();
-      const wx = p.x + p.w * 0.315, wy = p.y + p.h * 0.5;
-      ctx.beginPath();
-      ctx.rect(p.x - 10, p.y - 10, wx - p.x + 10, wy - p.y + p.h * 0.06 + 10);
-      ctx.clip();
-      ctx.globalAlpha = 0.5;
-      ctx.globalCompositeOperation = "multiply";
-      ctx.drawImage(source, p.x, p.y, p.w, p.h);
-      ctx.restore();
       ctx.globalAlpha = 1;
       sampleCtx.setTransform(cols / W, 0, 0, rows / H, 0, 0);
       sampleCtx.drawImage(source, p.x, p.y, p.w, p.h);
     }
     const px = sampleCtx.getImageData(0, 0, cols, rows).data;
+    // the window shadow's cells (top-left of the print), drawn a little deeper
+    let winX = -1, winY = -1;
+    if (sourceReady) {
+      const p = placement(t);
+      winX = (p.x + p.w * 0.315) / cellW;
+      winY = (p.y + p.h * 0.5) / cellH;
+    }
 
     // 2. the ASCII layer, one string per row per colour
     ctx.font = `${fontPx}px ${MONO}`;
@@ -124,36 +122,41 @@
     const last = LEVELS.length - 1;
     const tick = Math.floor(t * 5);
     for (let y = 0; y < rows; y += 1) {
-      let wall = "", faint = "", name = "";
+      let wall = "", faint = "", name = "", deep = "";
       // leaf-shadow sway: each row samples slightly to the side, in slow waves
       const shift = reduceMotion ? 0 : Math.round(Math.sin(y * 0.11 + t * 0.55) * 1.3 + Math.sin(y * 0.043 - t * 0.31) * 1.6 + gust * 2);
       for (let x = 0; x < cols; x += 1) {
         const c = y * cols + x;
                 if (nameCells[c]) {
-          wall += " "; faint += " ";
+          wall += " "; faint += " "; deep += " ";
           const q = cellPhase[c];
           name += NAME_GLYPHS[(q < 0.2 && !reduceMotion ? Math.floor(q * 53 + tick) : Math.floor(q * 17)) % NAME_GLYPHS.length];
           continue;
         }
         name += " ";
+        const inWindow = x < winX && y < winY;
         const sx = Math.min(cols - 1, Math.max(0, x + shift));
         const sk = (y * cols + sx) * 4;
         const lum = (px[sk] * 0.3 + px[sk + 1] * 0.59 + px[sk + 2] * 0.11) / 255;
         let d = (0.95 - lum) / 0.5;
         d += 0.05 * wave(t, 0.9, x * 0.31 + y * 0.17) * wave(t, 0.6, x * 0.07 - y * 0.23);
+        if (inWindow) d = d * 1.2 + 0.08;
         d = Math.min(1, Math.max(0, d));
         const set = LEVELS[Math.round(Math.pow(d, 0.8) * last)];
         // shimmer: about one cell in seven keeps swapping between same-density glyphs
         const p = cellPhase[c];
         const pick = p < 0.15 && !reduceMotion ? Math.floor(p * 97 + tick) : Math.floor(p * 31);
         const g = set[pick % set.length];
-        if (d < 0.42) { faint += g; wall += " "; } else { wall += g; faint += " "; }
+        if (inWindow && d >= 0.42) { deep += g; wall += " "; faint += " "; }
+        else if (d < 0.42) { faint += g; wall += " "; deep += " "; } else { wall += g; faint += " "; deep += " "; }
       }
       const py = y * cellH;
       ctx.fillStyle = INK_FAINT;
       ctx.fillText(faint, 0, py);
       ctx.fillStyle = INK;
       ctx.fillText(wall, 0, py);
+      ctx.fillStyle = INK_DEEP;
+      ctx.fillText(deep, 0, py);
       ctx.fillStyle = NAME_INK;
       ctx.fillText(name, 0, py);
     }
