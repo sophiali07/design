@@ -1,0 +1,13 @@
+/* Staso case study: same layout and rhythm as the Tik-Tock Glow case study. */
+.project-detail.is-staso-detail .project-detail-layout { display: none; }
+.project-detail.is-staso-detail .project-detail-page { width: min(100%, 1240px); }
+.project-detail.is-staso-detail .project-detail-page > h2 { margin-bottom: clamp(38px, 5vh, 58px); }
+.staso-case { display: grid; row-gap: clamp(104px, 10vw, 148px); }
+.staso-case[hidden] { display: none; }
+.project-card[data-project="staso"] img { width: 100%; height: auto; }
+.scroll-gif { display: block; width: 100%; height: auto; }
+@media (max-width: 760px) {
+  .staso-case { row-gap: 82px; }
+}
+.staso-media { margin: 0; overflow: hidden; border-radius: 6px; }
+.staso-media img { display: block; width: 100%; height: auto; }
