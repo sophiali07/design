@@ -21,17 +21,21 @@
 .project-card[data-project="staso"] .staso-logo-mark {
   position: absolute; left: 22.035%; top: 8.272%; width: 1.713% !important; height: auto !important;
   transform-origin: 50% 50%;
-  animation: staso-logo 11.8s cubic-bezier(.65, 0, .35, 1) infinite;
   will-change: transform;
 }
-@keyframes staso-logo {
-  /* ~1.8s spin, then 10s still before it repeats */
-  0%     { transform: perspective(240px) rotateY(0deg) translateY(0) scale(1); }
-  2.5%   { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
-  10%    { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
-  13%    { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
-  15.3%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
+/* Spins as soon as the Staso card is in view on the gallery page, then every 5s */
+body[data-view="work"]:not(.detail-open) .project-slide.is-active .project-card[data-project="staso"] .staso-logo-mark {
+  animation: staso-logo 6.8s cubic-bezier(.65, 0, .35, 1) infinite;
 }
+@keyframes staso-logo {
+  /* ~1.8s spin, then 5s still before it repeats */
+  0%     { transform: perspective(240px) rotateY(0deg) translateY(0) scale(1); }
+  4.4%   { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
+  17.6%  { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
+  22.8%  { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
+  26.5%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
+}
+
 
 @media (prefers-reduced-motion: reduce) { .project-card[data-project="staso"] .staso-logo-mark { animation: none; } }
 @media (max-width: 760px), (hover: none) {
