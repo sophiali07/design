@@ -23,17 +23,17 @@
   transform-origin: 50% 50%;
   will-change: transform;
 }
-/* Spins as soon as the Staso card is in view on the gallery page, then every 5s */
+/* Spins as soon as the Staso card is in view on the gallery page, then every 3s */
 body[data-view="work"]:not(.detail-open) .project-slide.is-active .project-card[data-project="staso"] .staso-logo-mark {
-  animation: staso-logo 6.8s cubic-bezier(.65, 0, .35, 1) infinite;
+  animation: staso-logo 4.8s cubic-bezier(.65, 0, .35, 1) infinite;
 }
 @keyframes staso-logo {
-  /* ~1.8s spin, then 5s still before it repeats */
+  /* ~1.8s spin, then 3s still before it repeats */
   0%     { transform: perspective(240px) rotateY(0deg) translateY(0) scale(1); }
-  4.4%   { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
-  17.6%  { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
-  22.8%  { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
-  26.5%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
+  6.25%  { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
+  25%    { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
+  32.3%  { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
+  37.5%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
 }
 
 
