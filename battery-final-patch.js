@@ -1,6 +1,6 @@
 (() => {
   const galleryImage = "assets/battery-gallery-original.jpg";
-  const sketchImage = "assets/battery-box-sketch-correct.png";
+  const sketchImage = "assets/battery-box-sketch-full.jpg";
   const normalize = (value) => (value || "").replace(/\s+/g, " ").trim().toLowerCase();
   const headings = () => Array.from(document.querySelectorAll("h1,h2,h3,h4,h5,h6"));
   const findHeading = (names) => headings().find((element) => names.includes(normalize(element.textContent)));

@@ -8,15 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=59" />
+    <link rel="stylesheet" href="styles.css?v=60" />
   <link rel="stylesheet" href="battery-fixes.css">
-  <link rel="stylesheet" href="battery-final-fixes.css?v=20261103-2012">
+  <link rel="stylesheet" href="battery-final-fixes.css?v=20261113">
   <style id="battery-rendered-edge-fixes">
-    /* Hide the faint scan/table edge below the box sketch itself. */
-    .battery-media--sketch {
-      display: block !important;
-      clip-path: inset(0 0 30px 0) !important;
-    }
 
     /* Complete the fourth storyboard panel at the image boundary. */
     .battery-media--storyboard {
@@ -27,13 +22,6 @@
     }
   </style>
   <style id="battery-edge-final-fix-20261103">
-    /* Remove the scanned table/edge below the first battery-box sketch. */
-    #battery-recycling-box .battery-media--sketch,
-    .battery-media--sketch {
-      display: block !important;
-      clip-path: inset(0 0 64px 0) !important;
-      margin-bottom: -64px !important;
-    }
 
     /* Restore the missing right edge on the fourth storyboard frame. */
     #battery-recycling-box .battery-media--storyboard,
@@ -92,7 +80,7 @@
 
           <article class="project-slide" data-index="1" data-categories="product">
             <a class="project-card project-wide" href="#battery-recycling-box" data-project="battery-recycling-box" data-detail-title="Interactive Battery Recycling Box" data-year="2026" data-medium="Blender, WebAR, Cardboard box" data-description="To address low engagement with battery recycling at school, I created an interactive recycling bin that made the process both fun and educational.&#10;&#10;Inspired by childhood shape-sorting toys, I designed this battery collection box with carved shapes and an animated battery model in Blender, integrated into a WebAR experience. I repurposed discarded cardboard shipping boxes, and the project increased the school’s battery recycling by more than 50%." aria-label="Open Interactive Battery Recycling Box project details">
-<img src="assets/battery-box-sketch-2026.jpg" alt="Interactive battery recycling box sketch" / style="max-width:620px;width:100%;height:auto;object-fit:contain;display:block;margin-inline:auto;">
+<img src="assets/battery-gallery-original.jpg" alt="Interactive battery recycling box sketch" />
               <span class="project-reveal"><small>Product Design · 2026</small><strong>Interactive Battery Recycling Box</strong><em>Project details ↗</em></span>
             </a>
           </article>
@@ -357,7 +345,7 @@
 
             <section class="fold-feature battery-feature">
               <figure class="fold-media battery-media battery-media--sketch">
-      <img loading="lazy" src="assets/battery-box-sketch-white.jpg" alt="Initial sketch for the interactive battery recycling box" />
+      <img loading="lazy" src="assets/battery-box-sketch-full.jpg" alt="Initial sketch for the interactive battery recycling box" />
               </figure>
               <div class="fold-copy">
                 <h3>Box sketch</h3>
@@ -412,6 +400,6 @@
     </main>
 
     <script src="script.js?v=42"></script>
-  <script src="battery-final-patch.js"></script>
+  <script src="battery-final-patch.js?v=20261113"></script>
 </body>
 </html>

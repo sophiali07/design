@@ -62,6 +62,8 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .project-card img { display: block; width: 100%; height: 100%; object-fit: contain; transition: filter .55s var(--ease), transform .65s var(--ease), opacity .55s var(--ease); }
 .project-card[data-project="fold-with-nara"] img { width: 100%; height: auto; clip-path: inset(0 0 5% 0); }
 .project-card[data-project="tik-tock-glow"] img { width: 100%; height: auto; clip-path: inset(4px 0 0); }
+.project-card[data-project="battery-recycling-box"] img { width: 100%; height: auto; }
+.project-card[data-project="battery-recycling-box"] .project-reveal strong { max-width: 88%; font-size: clamp(2rem, 5vw, 5.4rem); text-wrap: balance; }
 .project-card.project-wide { width: min(70vw, 1040px); }
 .project-card.project-square { width: min(48vw, 650px); height: min(62vh, 650px); }
 .project-card.project-portrait { width: min(38vw, 510px); height: min(68vh, 700px); }
@@ -199,40 +201,16 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .battery-media--landscape img { height: 100%; }
 .battery-media--sketch {
   width: min(100%, 480px);
-  aspect-ratio: 2230 / 1580;
   justify-self: center;
   background: #fff;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  overflow: visible;
 }
 .battery-media--sketch img {
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 100%;
   object-fit: contain;
-  object-position: center;
   transform: none;
-}
-.battery-media--sketch::before,
-.battery-media--sketch::after {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  background: #fff;
-  pointer-events: none;
-}
-.battery-media--sketch::before {
-  inset: 0;
-  height: auto;
-  background:
-    linear-gradient(#fff, #fff) top / 100% 16px no-repeat,
-    linear-gradient(#fff, #fff) bottom / 100% 38px no-repeat,
-    linear-gradient(#fff, #fff) left / 12px 100% no-repeat,
-    linear-gradient(#fff, #fff) right / 12px 100% no-repeat;
-}
-.battery-media--sketch::after {
-  display: none;
 }
 .battery-media--wide {
   width: min(100%, 500px);
