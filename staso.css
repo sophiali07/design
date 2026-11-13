@@ -4,10 +4,34 @@
 .project-detail.is-staso-detail .project-detail-page > h2 { margin-bottom: clamp(38px, 5vh, 58px); }
 .staso-case { display: grid; row-gap: clamp(104px, 10vw, 148px); }
 .staso-case[hidden] { display: none; }
-.project-card[data-project="staso"] img { width: 100%; height: auto; }
 .scroll-gif { display: block; width: 100%; height: auto; }
 @media (max-width: 760px) {
   .staso-case { row-gap: 82px; }
 }
 .staso-media { margin: 0; overflow: hidden; border-radius: 6px; }
 .staso-media img { display: block; width: 100%; height: auto; }
+
+/* Gallery card: same size as Fold With Nara, with the logo animated on top */
+.project-card[data-project="staso"] .staso-art { position: relative; display: block; width: 100%; transition: filter .55s var(--ease), transform .65s var(--ease); }
+.project-card[data-project="staso"] .staso-art img { width: 100%; height: auto; transition: none; }
+.project-slide.is-active .project-card[data-project="staso"]:hover img,
+.project-slide.is-active .project-card[data-project="staso"]:focus-visible img { filter: none; transform: none; }
+.project-slide.is-active .project-card[data-project="staso"]:hover .staso-art,
+.project-slide.is-active .project-card[data-project="staso"]:focus-visible .staso-art { filter: blur(13px) brightness(.48); transform: scale(1.045); }
+.project-card[data-project="staso"] .staso-logo-mark {
+  position: absolute; left: 22.035%; top: 8.272%; width: 1.713% !important; height: auto !important;
+  transform-origin: 50% 50%;
+  animation: staso-logo 4.8s cubic-bezier(.65, 0, .35, 1) infinite;
+  will-change: transform;
+}
+@keyframes staso-logo {
+  0%, 55% { transform: perspective(240px) rotateY(0deg) translateY(0) scale(1); }
+  62% { transform: perspective(240px) rotateY(0deg) translateY(-14%) scale(1.12); }
+  80% { transform: perspective(240px) rotateY(360deg) translateY(-14%) scale(1.12); }
+  88% { transform: perspective(240px) rotateY(360deg) translateY(4%) scale(.96); }
+  94%, 100% { transform: perspective(240px) rotateY(360deg) translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .project-card[data-project="staso"] .staso-logo-mark { animation: none; } }
+@media (max-width: 760px), (hover: none) {
+  .project-slide.is-active .project-card[data-project="staso"]:hover .staso-art { filter: none; transform: none; }
+}
