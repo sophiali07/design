@@ -27,6 +27,7 @@ const foldCaseStudy = document.querySelector(".fold-wix-case");
 const tikTockCaseStudy = document.querySelector(".tik-tock-case");
 const stasoCaseStudy = document.querySelector(".staso-case");
 const batteryCaseStudy = document.querySelector(".battery-case");
+const envCaseStudy = document.querySelector(".env-case");
 const finePointer = window.matchMedia("(pointer: fine)").matches;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const baseTitle = document.title;
@@ -56,7 +57,7 @@ function projectIndexFromHash() {
 function hideProjectDetail({ clearUrl = false, restoreFocus = false } = {}) {
   const wasVisible = projectDetail.classList.contains("is-visible");
   projectDetail.classList.remove("is-visible");
-  projectDetail.classList.remove("is-fold-detail", "is-tik-tock-detail", "is-staso-detail", "is-battery-detail", "is-drawing-detail", "is-portrait-detail");
+  projectDetail.classList.remove("is-fold-detail", "is-tik-tock-detail", "is-staso-detail", "is-battery-detail", "is-env-detail", "is-drawing-detail", "is-portrait-detail");
   delete projectDetail.dataset.project;
   body.classList.remove("detail-open");
   projectDetail.setAttribute("aria-hidden", "true");
@@ -81,6 +82,7 @@ function openProject(index, historyMode = "push") {
   const isTikTock = card.dataset.project === "tik-tock-glow";
   const isStaso = card.dataset.project === "staso";
   const isBattery = card.dataset.project === "battery-recycling-box";
+  const isEnv = card.dataset.project === "environmental-council";
   const isDrawing = card.querySelector("small").textContent.trim().startsWith("Drawing");
   const isPortrait = card.classList.contains("project-portrait");
 
@@ -105,11 +107,13 @@ function openProject(index, historyMode = "push") {
   tikTockCaseStudy.hidden = !isTikTock;
   stasoCaseStudy.hidden = !isStaso;
   batteryCaseStudy.hidden = !isBattery;
+  envCaseStudy.hidden = !isEnv;
   projectDetail.scrollTop = 0;
   projectDetail.classList.toggle("is-fold-detail", isFold);
   projectDetail.classList.toggle("is-tik-tock-detail", isTikTock);
   projectDetail.classList.toggle("is-staso-detail", isStaso);
   projectDetail.classList.toggle("is-battery-detail", isBattery);
+  projectDetail.classList.toggle("is-env-detail", isEnv);
   projectDetail.classList.toggle("is-drawing-detail", isDrawing);
   projectDetail.classList.toggle("is-portrait-detail", isPortrait);
   projectDetail.dataset.project = card.dataset.project;
