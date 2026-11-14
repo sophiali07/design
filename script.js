@@ -335,8 +335,8 @@ if (finePointer && !reduceMotion) {
   let lastTrailTime = 0;
 
   function animateCursor() {
-    cursorX += (pointerX - cursorX) * .22;
-    cursorY += (pointerY - cursorY) * .22;
+    cursorX = pointerX;   // follow the real pointer exactly (the arrow is the system cursor now)
+    cursorY = pointerY;
     cursor.style.left = `${cursorX}px`;
     cursor.style.top = `${cursorY}px`;
 
