@@ -2,6 +2,6 @@
 .project-detail.is-env-detail .project-detail-layout { display: none; }
 .project-detail.is-env-detail .project-detail-page { width: min(100%, 1240px); }
 .project-detail.is-env-detail .project-detail-page > h2 { margin-bottom: clamp(38px, 5vh, 58px); }
-.env-case { display: grid; row-gap: clamp(64px, 7vw, 104px); }
+.env-case { display: grid; row-gap: clamp(104px, 10vw, 148px); }
 .env-case[hidden] { display: none; }
 .env-hero img { display: block; width: 100%; height: auto; }
