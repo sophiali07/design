@@ -48,3 +48,11 @@ body[data-view="work"]:not(.detail-open) .project-slide.is-active .project-card[
 .staso-hero .staso-hero-logo { position: absolute; left: 26.042%; top: 11.061%; width: 1.542% !important; height: auto !important; transform-origin: 50% 50%; }
 body.detail-open .project-detail.is-staso-detail .staso-hero .staso-hero-logo { animation: staso-logo 4.8s cubic-bezier(.65, 0, .35, 1) .4s infinite; }
 @media (prefers-reduced-motion: reduce) { .staso-hero .staso-hero-logo { animation: none !important; } }
+
+/* Orange underline under "you." drawn like a pen stroke, once */
+.staso-pen { position: absolute; inset: 0; width: 100% !important; height: 100% !important; pointer-events: none; mix-blend-mode: multiply; overflow: visible; }
+.staso-pen path { stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .92; }
+@keyframes staso-pen-draw { 0% { stroke-dashoffset: 1; } 100% { stroke-dashoffset: 0; } }
+body[data-view="work"]:not(.detail-open) .project-slide.is-active .project-card[data-project="staso"] .staso-pen--card path,
+body.detail-open .project-detail.is-staso-detail .staso-pen--hero path { animation: staso-pen-draw .85s cubic-bezier(.55, .05, .25, 1) .55s forwards; }
+@media (prefers-reduced-motion: reduce) { .staso-pen path { stroke-dashoffset: 0; animation: none !important; } }
