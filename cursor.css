@@ -1,7 +1,7 @@
 /* Cursor: a filled arrow in the deep blue of the name. Gallery hover keeps its blur + title reveal. */
 /* Accent lines (filter underline, nav hover, close hover) in the same blue as the cursor */
 :root { --red: rgb(70, 112, 166); }
-:root { --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M3 2 L20 9.5 L12 12 L9.5 20 Z' fill='rgb(70,112,166)'/%3E%3C/svg%3E"); }
+:root { --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M4 2 L4 19.5 L8.6 15.2 L16 15 Z' fill='rgb(70,112,166)'/%3E%3C/svg%3E"); }
 .cursor,
 .cursor.is-hovering,
 body.detail-open .cursor,
@@ -9,11 +9,11 @@ body.detail-open .cursor.is-hovering {
   width: 22px; height: 22px; border: 0; border-radius: 0;
   background: var(--cursor-arrow) center / 100% 100% no-repeat;
   mix-blend-mode: normal;
-  transform: translate(-3px, -2px);
-  transform-origin: 3px 2px;
+  transform: translate(-4px, -2px);
+  transform-origin: 4px 2px;
   transition: transform .25s var(--ease);
 }
-.cursor.is-hovering, body.detail-open .cursor.is-hovering { transform: translate(-3px, -2px) scale(1.35); }
+.cursor.is-hovering, body.detail-open .cursor.is-hovering { transform: translate(-4px, -2px) scale(1.35); }
 .cursor span { display: none; }
 .cursor-trails { display: none; }
 /* Hide the system cursor everywhere the blue arrow is shown (links, buttons, cards, videos, panels) */
