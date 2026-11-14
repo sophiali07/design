@@ -1,6 +1,6 @@
 // About portrait: the photo among the moving plant shadows. Its soft faded edge
 // dissolves into ASCII characters in the photo's own colours, and a shimmer of
-// light characters runs over the photo itself.
+// light characters runs over the photo's background (never over her).
 (() => {
   const fig = document.querySelector(".about-photo");
   if (!fig) return;
@@ -8,6 +8,9 @@
   const canvas = fig.querySelector("canvas");
   const ctx = canvas.getContext && canvas.getContext("2d");
   const src = fig.querySelector("img");
+  // where Sophia is in the photo (white = her), so the characters stay on the background only
+  const person = new Image();
+  person.src = "assets/sophia-portrait-mask.png?v=1";
   if (!ctx) { fig.classList.add("no-canvas"); return; }
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
@@ -19,7 +22,7 @@
   const [sample, sctx] = mk();   // one pixel per character cell (photo colour)
   const [hs, hsctx] = mk();      // one pixel per character cell (halo + fade)
   let W = 0, H = 0, dpr = 1, cellW = 6, cellH = 10, cols = 0, rows = 0;
-  let pix = null, halP = null, fadeP = null, phase = new Float32Array(0), blot = new Float32Array(0), ready = false;
+  let pix = null, perP = null, halP = null, fadeP = null, phase = new Float32Array(0), blot = new Float32Array(0), ready = false;
 
   function softMask(c, cx, w, h, inset, blur) {
     c.setTransform(1, 0, 0, 1, 0, 0);
@@ -60,6 +63,9 @@
     sctx.clearRect(0, 0, cols, rows);
     sctx.drawImage(src, ox / pw * cols, oy / ph * rows, iw / pw * cols, ih / ph * rows);
     pix = sctx.getImageData(0, 0, cols, rows).data;
+    sctx.clearRect(0, 0, cols, rows);
+    if (person.complete && person.naturalWidth) sctx.drawImage(person, ox / pw * cols, oy / ph * rows, iw / pw * cols, ih / ph * rows);
+    perP = sctx.getImageData(0, 0, cols, rows).data;
     hsctx.clearRect(0, 0, cols, rows);
     hsctx.drawImage(halo, 0, 0, cols, rows);
     halP = hsctx.getImageData(0, 0, cols, rows).data;
@@ -99,6 +105,8 @@
         const drift = reduceMotion ? 0 : 0.08 * Math.sin(t * 0.6 + x * 0.1 - y * 0.08 + p);
         const reach = halP[k + 3] / 255 + (blot[i] * 1.1 + drift) * edge;
         if (reach < 0.12 + p * 0.5) continue;
+        const her = perP[k] / 255 * (perP[k + 3] / 255);
+        if (her > 0.35) continue;                 // no characters on her face, hair or clothes
         const r = pix[k], g = pix[k + 1], b = pix[k + 2];
         const lum = (r * 0.3 + g * 0.59 + b * 0.11) / 255;
         const wave = reduceMotion ? 0 : 0.1 * Math.sin(t * 1.1 + x * 0.33 + y * 0.21 + p * 6);
@@ -109,7 +117,7 @@
         if (p < 0.15 && !reduceMotion) level = (level + tick + Math.floor(p * 40)) % LEVELS.length;
         const lift = photo * (0.6 + lum * 0.3);  // lighten on the photo, keep true colour at the edge
         ctx.fillStyle = `rgb(${Math.round(r + (255 - r) * lift)},${Math.round(g + (255 - g) * lift)},${Math.round(b + (255 - b) * lift)})`;
-        ctx.globalAlpha = Math.min(1, reach * 1.3) * (photo * (0.22 + lum * 0.4) + edge * 0.75);
+        ctx.globalAlpha = (1 - her) * Math.min(1, reach * 1.3) * (photo * (0.22 + lum * 0.4) + edge * 0.75);
         ctx.fillText(LEVELS[level], x * cellW, y * cellH);
       }
     }
@@ -127,5 +135,6 @@
 
   const start = () => { layout(); requestAnimationFrame(loop); };
   if (src.complete && src.naturalWidth) start(); else src.addEventListener("load", start);
+  person.addEventListener("load", () => layout());
   addEventListener("resize", () => layout());
 })();
