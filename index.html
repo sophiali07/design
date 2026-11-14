@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles.css?v=61" />
     <link rel="stylesheet" href="intro-shadow.css?v=7" />
     <link rel="stylesheet" href="cursor.css?v=5" />
-    <link rel="stylesheet" href="about-shadow.css?v=3" />
+    <link rel="stylesheet" href="about-shadow.css?v=5" />
     <link rel="stylesheet" href="staso.css?v=12" />
     <link rel="stylesheet" href="env-council.css?v=3" />
   <link rel="stylesheet" href="battery-fixes.css">
@@ -492,10 +492,17 @@
 
       <section class="about-panel" aria-labelledby="about-title" aria-hidden="true">
         <button class="about-close" type="button" aria-label="Close about panel">Close ×</button>
+        <div class="about-layout">
+          <figure class="about-photo" aria-label="Portrait of Sophia Li">
+            <canvas aria-hidden="true"></canvas>
+            <img src="assets/sophia-portrait.jpg" alt="Portrait of Sophia Li" />
+            <i class="about-photo-corner about-photo-corner--tl"></i><i class="about-photo-corner about-photo-corner--tr"></i><i class="about-photo-corner about-photo-corner--bl"></i><i class="about-photo-corner about-photo-corner--br"></i>
+          </figure>
         <div class="about-copy">
           <h2 id="about-title" class="about-hello">Hi, I’m <span>Sophia</span>.</h2>
           <p>I’m a passionate designer at the University of Southern California, studying Arts, Technology and the Business of Innovation. Through my studies, I explore the intersection of creativity, design, and technology, with a focus on human-centered design.</p>
           <a href="mailto:sli38869@usc.edu">sli38869@usc.edu ↗</a>
+        </div>
         </div>
       </section>
     </main>
@@ -503,6 +510,7 @@
     <script src="script.js?v=44"></script>
     <script src="scroll-gifs.js?v=2"></script>
     <script src="about-shadow.js?v=6"></script>
+    <script src="about-photo.js?v=1"></script>
     <script>
       // Front page option: ?intro=a or ?intro=b (default b)
       (() => {
