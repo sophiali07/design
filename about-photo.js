@@ -1,4 +1,4 @@
-// About portrait: the photo with feathered edges and a shimmering grid of
+// About portrait: the photo in an arch that fades out at the bottom, and a shimmering grid of
 // ASCII characters over it, tinted from the photo itself.
 (() => {
   const fig = document.querySelector(".about-photo");
@@ -23,19 +23,28 @@
     W = r.width; H = r.height;
     canvas.width = base.width = Math.round(W * dpr);
     canvas.height = base.height = Math.round(H * dpr);
-    // photo, cover-fit, with soft feathered edges
-    const s = Math.max(W / src.naturalWidth, H / src.naturalHeight);
+    // photo, cover-fit, clipped to an arch and fading out at the bottom
+    const s = Math.max(W / src.naturalWidth, H / src.naturalHeight) * 1.16;
     const iw = src.naturalWidth * s, ih = src.naturalHeight * s;
+    // keep the face (about 51% across, 46% down the photo) centred while zoomed in
+    const ox = Math.min(0, Math.max(W - iw, W / 2 - iw * 0.51));
+    const oy = Math.min(0, Math.max(H - ih, H * 0.5 - ih * 0.46));
     bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     bctx.clearRect(0, 0, W, H);
-    bctx.drawImage(src, (W - iw) / 2, (H - ih) / 2, iw, ih);
+    bctx.save();
+    bctx.beginPath();
+    bctx.moveTo(0, H);
+    bctx.lineTo(0, W / 2);
+    bctx.arc(W / 2, W / 2, W / 2, Math.PI, 0);
+    bctx.lineTo(W, H);
+    bctx.closePath();
+    bctx.clip();
+    bctx.drawImage(src, ox, oy, iw, ih);
+    bctx.restore();
     bctx.globalCompositeOperation = "destination-in";
-    const f = Math.min(W, H) * 0.09;
-    for (const [x0, y0, x1, y1] of [[0, 0, f, 0], [W, 0, W - f, 0], [0, 0, 0, f], [0, H, 0, H - f]]) {
-      const g = bctx.createLinearGradient(x0, y0, x1, y1);
-      g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, "rgba(0,0,0,1)");
-      bctx.fillStyle = g; bctx.fillRect(0, 0, W, H);
-    }
+    const g = bctx.createLinearGradient(0, H * 0.72, 0, H);
+    g.addColorStop(0, "rgba(0,0,0,1)"); g.addColorStop(1, "rgba(0,0,0,0)");
+    bctx.fillStyle = g; bctx.fillRect(0, 0, W, H);
     bctx.globalCompositeOperation = "source-over";
     // ASCII grid
     cell = Math.max(7, Math.round(W / 34));
