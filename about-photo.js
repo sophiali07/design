@@ -1,6 +1,6 @@
-// About portrait: a clear photo with a soft faded edge, sitting among the moving
-// plant shadows (they show through where the edge fades), plus a very light
-// shimmer of ASCII characters tinted from the photo.
+// About portrait: the photo among the moving plant shadows. Its soft faded edge
+// dissolves into ASCII characters in the photo's own colours, and a shimmer of
+// light characters runs over the photo itself.
 (() => {
   const fig = document.querySelector(".about-photo");
   if (!fig) return;
@@ -51,7 +51,7 @@
     bctx.drawImage(src, ox, oy, iw, ih);
     bctx.globalCompositeOperation = "source-over";
     // characters reach a little past the photo before they thin out
-    softMask(hctx, null, pw, ph, m * 0.13, m * 0.04);
+    softMask(hctx, null, pw, ph, m * 0.1, m * 0.05);
 
     cellW = 6; cellH = 11;   // same character grid as the leaf shadows
     cols = Math.ceil(W / cellW); rows = Math.ceil(H / cellH);
@@ -92,17 +92,24 @@
     for (let y = 0; y < rows; y += 1) {
       for (let x = 0; x < cols; x += 1) {
         const i = y * cols + x, k = i * 4;
-        const photo = fadeP[k + 3] / 255;
-        if (photo < 0.5) continue;
+        const photo = fadeP[k + 3] / 255;        // 1 = clear photo, 0 = faded out
+        const edge = 1 - photo;
+        const p = phase[i];
+        // the edge dissolves into characters; the boundary is uneven and drifts slowly
+        const drift = reduceMotion ? 0 : 0.08 * Math.sin(t * 0.6 + x * 0.1 - y * 0.08 + p);
+        const reach = halP[k + 3] / 255 + (blot[i] * 1.1 + drift) * edge;
+        if (reach < 0.12 + p * 0.5) continue;
         const r = pix[k], g = pix[k + 1], b = pix[k + 2];
         const lum = (r * 0.3 + g * 0.59 + b * 0.11) / 255;
-        const p = phase[i];
         const wave = reduceMotion ? 0 : 0.1 * Math.sin(t * 1.1 + x * 0.33 + y * 0.21 + p * 6);
-        let level = Math.round(Math.max(0, Math.min(1, lum + wave)) * (LEVELS.length - 1));
+        // on the photo: light glyphs, brighter = denser. In the faded edge: the photo's own
+        // colour carried by the characters, darker = denser
+        const dense = photo * lum + edge * (0.25 + (1 - lum) * 0.75);
+        let level = Math.round(Math.max(0, Math.min(1, dense + wave)) * (LEVELS.length - 1));
         if (p < 0.15 && !reduceMotion) level = (level + tick + Math.floor(p * 40)) % LEVELS.length;
-        const mix = 0.65 + lum * 0.3;
-        ctx.fillStyle = `rgb(${Math.round(r + (255 - r) * mix)},${Math.round(g + (255 - g) * mix)},${Math.round(b + (255 - b) * mix)})`;
-        ctx.globalAlpha = (photo - 0.5) * 2 * (0.06 + lum * 0.16);
+        const lift = photo * (0.6 + lum * 0.3);  // lighten on the photo, keep true colour at the edge
+        ctx.fillStyle = `rgb(${Math.round(r + (255 - r) * lift)},${Math.round(g + (255 - g) * lift)},${Math.round(b + (255 - b) * lift)})`;
+        ctx.globalAlpha = Math.min(1, reach * 1.3) * (photo * (0.22 + lum * 0.4) + edge * 0.75);
         ctx.fillText(LEVELS[level], x * cellW, y * cellH);
       }
     }
