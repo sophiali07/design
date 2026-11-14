@@ -30,7 +30,7 @@
 
 /* LinkedIn + email, side by side, same underlined style */
 .about-links { display: flex; justify-content: flex-end; align-items: flex-end; gap: clamp(22px, 2.4vw, 36px); }
-.about-links a { margin-left: 0; }
+.about-links a { margin-left: 0; border-bottom: 0; padding-bottom: 0; }
 .about-linkedin { display: inline-flex !important; align-items: center; gap: 6px; border-bottom: 0 !important; }
 .about-linkedin svg { display: block; width: 15px; height: 15px; color: rgb(70, 108, 160); }
 @media (max-width: 760px) { .about-links { justify-content: flex-start; } }
