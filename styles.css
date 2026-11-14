@@ -200,7 +200,7 @@ body[data-view="work"] .work-view { opacity: 1; visibility: visible; transition-
 .battery-media--landscape { aspect-ratio: 4 / 3; }
 .battery-media--landscape img { height: 100%; }
 .battery-media--sketch {
-  width: min(100%, 480px);
+  width: min(100%, 330px);
   justify-self: center;
   background: #fff;
   overflow: visible;
