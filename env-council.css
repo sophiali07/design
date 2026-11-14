@@ -5,3 +5,6 @@
 .env-case { display: grid; row-gap: clamp(104px, 10vw, 148px); }
 .env-case[hidden] { display: none; }
 .env-hero img { display: block; width: 100%; height: auto; }
+/* first two photos smaller so the low-resolution originals stay crisp */
+.env-case .fold-feature:nth-of-type(1) .fold-media,
+.env-case .fold-feature:nth-of-type(2) .fold-media { width: min(100%, 440px); justify-self: center; }
